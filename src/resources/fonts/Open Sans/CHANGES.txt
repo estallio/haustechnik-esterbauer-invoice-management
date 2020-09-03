@@ -1,0 +1,7 @@
+The original .ttf files in addition to the LICENSE.txt
+file were downloaded from Google Fonts and afterwards
+converted to woff2 fonts. The documentation is only
+necessary for the woff2 files in this folder as these
+are the only files that falls under the Apache License.
+The stylesheet.css is created on my own and falls under
+MIT License.

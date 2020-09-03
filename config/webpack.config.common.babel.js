@@ -18,6 +18,9 @@ export default {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'eslint-loader',
+        options: {
+          emitWarning: true,
+        },
       },
       {
         test: /\.jsx?$/,
@@ -27,12 +30,26 @@ export default {
       {
         // files containing *.module.css are loaded with css-modules: true
         test: /.module\.(scss|sass|css)$/,
-        use: ['style-loader', { loader: 'css-loader', options: { modules: true, importLoaders: 1 } }, 'sass-loader'],
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: { modules: true, importLoaders: 1 },
+          },
+          'sass-loader',
+        ],
       },
       {
         // files not containing *.module.css are loaded with css-modules: false
         test: /(?<!.module)\.(scss|sass|css)$/,
-        use: ['style-loader', { loader: 'css-loader', options: { modules: false, importLoaders: 1 } }, 'sass-loader'],
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: { modules: false, importLoaders: 1 },
+          },
+          'sass-loader',
+        ],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,

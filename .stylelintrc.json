@@ -5,12 +5,14 @@
     "stylelint-config-css-modules"
   ],
   "plugins": [
-    "stylelint-scss"
+    "stylelint-scss",
+    "stylelint-order"
   ],
   "ignoreFiles": ["**/*.{js,jsx,ts,tsx}"],
   "rules": {
     "value-keyword-case": null,
     "selector-class-pattern": null,
-    "unit-disallowed-list": "pt"
+    "unit-disallowed-list": "pt",
+    "string-quotes": "single"
   }
 }

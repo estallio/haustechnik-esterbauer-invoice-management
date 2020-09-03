@@ -1,5 +1,10 @@
-@import "~normalize.css";
-@import "./resources/fonts/Open Sans/stylesheet.css";
+@import '~normalize.css';
+@import './resources/fonts/Open Sans/stylesheet.css';
+
+html {
+  font-family: 'Open Sans', sans-serif;
+  line-height: 1.2;
+}
 
 .noscript-info {
   text-align: center;

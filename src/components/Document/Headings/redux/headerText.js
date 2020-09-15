@@ -12,4 +12,4 @@ export const { setHeaderText } = headerTextSlice.actions;
 
 export default headerTextSlice.reducer;
 
-export const getHeaderText = (state) => state.headerText;
+export const selectHeaderText = (state) => state.headerText;

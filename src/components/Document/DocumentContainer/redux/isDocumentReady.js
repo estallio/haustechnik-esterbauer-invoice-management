@@ -12,4 +12,4 @@ export const { setIsDocumentReady } = isDocumentReadySlice.actions;
 
 export default isDocumentReadySlice.reducer;
 
-export const getIsDocumentReady = (state) => state.isDocumentReady;
+export const selectIsDocumentReady = (state) => state.isDocumentReady;

@@ -12,4 +12,4 @@ export const { setName } = nameSlice.actions;
 
 export default nameSlice.reducer;
 
-export const getName = (state) => state.name;
+export const selectName = (state) => state.name;

@@ -12,4 +12,4 @@ export const { setSubject } = subjectSlice.actions;
 
 export default subjectSlice.reducer;
 
-export const getSubject = (state) => state.subject;
+export const selectSubject = (state) => state.subject;

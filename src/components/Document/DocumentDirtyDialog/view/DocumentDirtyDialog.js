@@ -9,7 +9,7 @@ import { Prompt, withRouter } from 'react-router-dom';
 import { Dialog, DialogType, DialogFooter } from '@fluentui/react/lib/Dialog';
 import { PrimaryButton, DefaultButton } from '@fluentui/react/lib/Button';
 
-import { getIsDocumentDirty } from '../redux/isDocumentDirty';
+import { selectIsDocumentDirty } from '../redux/isDocumentDirty';
 
 // if errors occur check this: https://medium.com/@michaelchan_13570/using-react-router-v4-prompt-with-custom-modal-component-ca839f5faf39
 
@@ -116,7 +116,7 @@ DocumentDirtyDialog.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  isDocumentDirty: getIsDocumentDirty(state),
+  isDocumentDirty: selectIsDocumentDirty(state),
 });
 
 export default connect(mapStateToProps, null)(withRouter(DocumentDirtyDialog));

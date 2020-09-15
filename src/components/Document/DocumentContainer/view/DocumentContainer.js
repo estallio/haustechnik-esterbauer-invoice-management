@@ -13,7 +13,7 @@ import FullPageSpinner from '../../FullPageSpinner';
 
 import { loadDocument } from '../../../../actions';
 
-import { getIsDocumentReady } from '../redux/isDocumentReady';
+import { selectIsDocumentReady } from '../redux/isDocumentReady';
 
 import styles from './DocumentContainer.module.scss';
 
@@ -25,7 +25,7 @@ const DocumentContainer = () => {
     dispatch(loadDocument(id));
   }, [id, dispatch]);
 
-  const isDocumentReady = useSelector(getIsDocumentReady);
+  const isDocumentReady = useSelector(selectIsDocumentReady);
 
   if (!isDocumentReady) {
     return <FullPageSpinner />;

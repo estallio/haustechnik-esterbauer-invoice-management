@@ -12,4 +12,4 @@ export const { setIsDocumentValid } = isDocumentValidSlice.actions;
 
 export default isDocumentValidSlice.reducer;
 
-export const getIsDocumentValid = (state) => state.isDocumentValid;
+export const selectIsDocumentValid = (state) => state.isDocumentValid;

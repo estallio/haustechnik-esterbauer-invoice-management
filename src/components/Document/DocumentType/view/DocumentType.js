@@ -7,12 +7,12 @@ import { Stack } from '@fluentui/react/lib/Stack';
 
 import { OFFER } from '../../../../database/constants';
 
-import { getDocumentType } from '../redux/documentType';
+import { selectDocumentType } from '../redux/documentType';
 
 import styles from './DocumentType.module.scss';
 
 const DocumentType = () => {
-  const documentType = useSelector(getDocumentType);
+  const documentType = useSelector(selectDocumentType);
 
   return (
     <Stack className={styles.wrapper}>

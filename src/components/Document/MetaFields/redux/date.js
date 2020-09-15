@@ -12,4 +12,4 @@ export const { setDate } = dateSlice.actions;
 
 export default dateSlice.reducer;
 
-export const getDate = (state) => state.date;
+export const selectDate = (state) => state.date;

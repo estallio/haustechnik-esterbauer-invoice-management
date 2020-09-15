@@ -12,4 +12,4 @@ export const { setFooterText } = footerTextSlice.actions;
 
 export default footerTextSlice.reducer;
 
-export const getFooterText = (state) => state.footerText;
+export const selectFooterText = (state) => state.footerText;

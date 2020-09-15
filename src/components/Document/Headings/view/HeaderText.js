@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { TextField } from '@fluentui/react/lib/TextField';
 
-import { getHeaderText, setHeaderText } from '../redux/headerText';
+import { selectHeaderText, setHeaderText } from '../redux/headerText';
 
 const HeaderText = () => {
   const dispatch = useDispatch();
-  const headerText = useSelector(getHeaderText);
+  const headerText = useSelector(selectHeaderText);
 
   const headerTextChanged = useCallback((e, v) => dispatch(setHeaderText(v)), [
     dispatch,

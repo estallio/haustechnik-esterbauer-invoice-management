@@ -12,4 +12,4 @@ export const { setHeadline } = headlineSlice.actions;
 
 export default headlineSlice.reducer;
 
-export const getHeadline = (state) => state.headline;
+export const selectHeadline = (state) => state.headline;

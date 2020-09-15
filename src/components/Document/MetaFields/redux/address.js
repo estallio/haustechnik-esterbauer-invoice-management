@@ -12,4 +12,4 @@ export const { setAddress } = addressSlice.actions;
 
 export default addressSlice.reducer;
 
-export const getAddress = (state) => state.address;
+export const selectAddress = (state) => state.address;

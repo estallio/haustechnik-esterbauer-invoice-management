@@ -4,16 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { TextField } from '@fluentui/react/lib/TextField';
 
-import { getDocumentId, setDocumentId } from '../redux/documentId';
+import { selectDocumentId, setDocumentId } from '../redux/documentId';
 
-import { getDocumentType } from '../../DocumentType/redux/documentType';
+import { selectDocumentType } from '../../DocumentType/redux/documentType';
 
 import { getDocumentTypeName } from '../../../../utils/documentUtils';
 
 const DocumentId = () => {
   const dispatch = useDispatch();
-  const documentId = useSelector(getDocumentId);
-  const documentType = useSelector(getDocumentType);
+  const documentId = useSelector(selectDocumentId);
+  const documentType = useSelector(selectDocumentType);
 
   const documentIdChanged = useCallback((e, v) => dispatch(setDocumentId(v)), [
     dispatch,

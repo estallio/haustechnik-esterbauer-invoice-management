@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { TextField } from '@fluentui/react/lib/TextField';
 
-import { getFooterText, setFooterText } from '../redux/footerText';
+import { selectFooterText, setFooterText } from '../redux/footerText';
 
 const FooterText = () => {
   const dispatch = useDispatch();
-  const footerText = useSelector(getFooterText);
+  const footerText = useSelector(selectFooterText);
 
   const footerTextChanged = useCallback((e, v) => dispatch(setFooterText(v)), [
     dispatch,

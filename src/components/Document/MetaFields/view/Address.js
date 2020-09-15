@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { TextField } from '@fluentui/react/lib/TextField';
 
-import { getAddress, setAddress } from '../redux/address';
+import { selectAddress, setAddress } from '../redux/address';
 
 import styles from './Address.module.scss';
 
 const Address = () => {
   const dispatch = useDispatch();
-  const address = useSelector(getAddress);
+  const address = useSelector(selectAddress);
 
   const addressChanged = useCallback((e, v) => dispatch(setAddress(v)), [
     dispatch,

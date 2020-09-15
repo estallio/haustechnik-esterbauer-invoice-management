@@ -12,4 +12,4 @@ export const { setDocumentType } = documentTypeSlice.actions;
 
 export default documentTypeSlice.reducer;
 
-export const getDocumentType = (state) => state.documentType;
+export const selectDocumentType = (state) => state.documentType;

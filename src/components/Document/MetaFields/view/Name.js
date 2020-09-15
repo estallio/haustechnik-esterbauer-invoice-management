@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { TextField } from '@fluentui/react/lib/TextField';
 
-import { getName, setName } from '../redux/name';
+import { selectName, setName } from '../redux/name';
 
 const Name = () => {
   const dispatch = useDispatch();
-  const name = useSelector(getName);
+  const name = useSelector(selectName);
 
   const nameChanged = useCallback((e, v) => dispatch(setName(v)), [dispatch]);
 

@@ -16,8 +16,8 @@ import {
   deleteDocument as deleteDocumentAction,
 } from '../../../../actions';
 
-import { getIsDocumentValid } from '../redux/isDocumentValid';
-import { getIsDocumentDirty } from '../../DocumentDirtyDialog/redux/isDocumentDirty';
+import { selectIsDocumentValid } from '../redux/isDocumentValid';
+import { selectIsDocumentDirty } from '../../DocumentDirtyDialog/redux/isDocumentDirty';
 
 import { generateFarItems, generateItems } from '../utils/CommandBarUtils';
 
@@ -80,8 +80,8 @@ CommandBar.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  isDocumentValid: getIsDocumentValid(state),
-  isDocumentDirty: getIsDocumentDirty(state),
+  isDocumentValid: selectIsDocumentValid(state),
+  isDocumentDirty: selectIsDocumentDirty(state),
 });
 
 const mapDispatchToProps = {

@@ -12,4 +12,4 @@ export const { setDocumentId } = documentIdSlice.actions;
 
 export default documentIdSlice.reducer;
 
-export const getDocumentId = (state) => state.documentId;
+export const selectDocumentId = (state) => state.documentId;

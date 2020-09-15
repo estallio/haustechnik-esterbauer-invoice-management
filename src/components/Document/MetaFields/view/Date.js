@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { DatePicker, DayOfWeek } from '@fluentui/react/lib/DatePicker';
 
-import { getDate, setDate } from '../redux/date';
+import { selectDate, setDate } from '../redux/date';
 
-import { getDocumentType } from '../../DocumentType/redux/documentType';
+import { selectDocumentType } from '../../DocumentType/redux/documentType';
 
 import {
   DayPickerStrings,
@@ -17,14 +17,14 @@ import { getDocumentTypeName } from '../../../../utils/documentUtils';
 
 const Date = () => {
   const dispatch = useDispatch();
-  const date = useSelector(getDate);
+  const date = useSelector(selectDate);
 
   const dateChanged = useCallback(
     (value) => dispatch(setDate(value ? formatDate(value) : '')),
     [dispatch],
   );
 
-  const documentType = useSelector(getDocumentType);
+  const documentType = useSelector(selectDocumentType);
 
   return (
     <DatePicker

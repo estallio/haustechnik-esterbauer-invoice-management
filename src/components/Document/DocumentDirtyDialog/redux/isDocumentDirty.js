@@ -12,4 +12,4 @@ export const { setIsDocumentDirty } = isDocumentDirtySlice.actions;
 
 export default isDocumentDirtySlice.reducer;
 
-export const getIsDocumentDirty = (state) => state.isDocumentDirty;
+export const selectIsDocumentDirty = (state) => state.isDocumentDirty;

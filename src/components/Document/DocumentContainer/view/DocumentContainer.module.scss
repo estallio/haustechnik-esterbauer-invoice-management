@@ -1,0 +1,10 @@
+@import '~@fluentui/react/dist/sass/References';
+
+.fixed {
+  box-shadow: 0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108); // TODO: why are these boxShadows defined?
+  height: 100%; // TODO: scroll of the whole wrapper is not the best solution, a better solution would be to scroll only th inner container
+  overflow: scroll;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}

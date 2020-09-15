@@ -1,4 +1,4 @@
-import PositionListContainer from './view/PositionListContainer';
+import PositionListContainer from './view/Positions/PositionList/PositionListContainer';
 
 export default PositionListContainer;
 

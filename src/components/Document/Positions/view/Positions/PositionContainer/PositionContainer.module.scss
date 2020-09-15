@@ -1,0 +1,22 @@
+@import '~@fluentui/react/dist/sass/References';
+
+.positionWrapper {
+  background-color: $ms-color-white;
+  border-top: 1px dashed $ms-color-gray80;
+  padding-bottom: 4px;
+  padding-top: 8px;
+
+  &.group {
+    background-color: $ms-color-communicationTint40;
+    padding-bottom: 8px;
+  }
+
+  &.isDragging {
+    background-color: $ms-color-communicationPrimary;
+  }
+
+  &.group.isDragging {
+    // just to get sure isDragging is higher resolution than group
+    background-color: $ms-color-communicationPrimary;
+  }
+}

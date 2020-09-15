@@ -1,0 +1,26 @@
+@import '~@fluentui/react/dist/sass/References';
+@import '../../Shared/SharedStyles.module';
+
+.additionalText {
+  box-sizing: border-box;
+  height: 0;
+  overflow: hidden;
+}
+
+.alternativeText {
+  height: auto;
+  overflow: visible;
+}
+
+.rowWrapper {
+  &:focus-within .additionalText {
+    height: auto;
+    overflow: visible;
+  }
+
+  &:focus-within .alternativeText {
+    box-sizing: border-box;
+    height: 0;
+    overflow: hidden;
+  }
+}

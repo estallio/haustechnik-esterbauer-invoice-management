@@ -1,0 +1,17 @@
+.hoverContainer {
+  user-select: none;
+
+  &:hover {
+    /* stylelint-disable max-nesting-depth */
+    :global {
+      .icon-visible-hover {
+        display: block;
+      }
+
+      .text-hidden-hover {
+        display: none;
+      }
+    }
+    /* stylelint-enable */
+  }
+}

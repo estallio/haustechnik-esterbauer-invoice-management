@@ -2,9 +2,9 @@ import React from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { selectPositionIds } from '../../redux/positions';
+import { selectPositionIds } from '../../../redux/positions';
 
-import PositionListItem from '../PositionListItem';
+import PositionListItem from './PositionListItem';
 
 const PositionList = () => {
   const positionIds = useSelector(selectPositionIds);

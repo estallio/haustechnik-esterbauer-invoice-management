@@ -9,10 +9,10 @@ import { Stack } from '@fluentui/react/lib/Stack';
 
 import classNames from 'classnames';
 
-import { reorderPositions } from '../../redux/positions';
+import { reorderPositions } from '../../../../redux/positions';
 
 import PositionList from '../PositionList';
-import PositionControls from '../PositionControls/PositionControls';
+import PositionControls from '../../PositionControls/PositionControls';
 
 import styles from './PositionListContainer.module.scss';
 

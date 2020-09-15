@@ -1,10 +1,9 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
 
 import { useSelector } from 'react-redux';
 
-import { selectAlternativeIdsByPositionId } from '../../redux/alternatives';
+import { selectAlternativeIdsByPositionId } from '../../../redux/alternatives';
 
 import AlternativeListItem from '../AlternativeListItem';
 

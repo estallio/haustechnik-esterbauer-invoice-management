@@ -57,4 +57,4 @@ const PositionListContainer = () => {
     </Stack>
   );
 };
-export default PositionListContainer;
+export default React.memo(PositionListContainer);

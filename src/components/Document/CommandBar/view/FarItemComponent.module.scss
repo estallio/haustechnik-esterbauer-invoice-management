@@ -1,0 +1,22 @@
+@import '~@fluentui/react/dist/sass/References';
+
+.icon {
+  font-size: 16px;
+}
+
+.text {
+  padding-left: 10px;
+}
+
+.commandBarStatusValid {
+  color: $ms-color-sharedGreen10;
+}
+
+.commandBarStatusError {
+  color: $ms-color-sharedRedOrange10;
+}
+
+.componentStyles {
+  height: 100%;
+  padding-left: 10px;
+}

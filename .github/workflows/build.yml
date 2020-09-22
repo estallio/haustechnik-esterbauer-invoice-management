@@ -12,7 +12,7 @@ jobs:
       matrix:
         os: [
           macos-latest,
-          ubuntu-latest,
+          # ubuntu-latest, #  error: Error: Application entry file "main.prod.js" in the "/home/runner/work/haustechnik-esterbauer-invoice-management/haustechnik-esterbauer-invoice-management/packages/native/release/linux-unpacked/resources/app.asar" does not exist. Seems like a wrong configuration.
           windows-latest
         ]
 

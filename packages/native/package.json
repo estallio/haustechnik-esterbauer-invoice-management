@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "prepare": "yarn cross-env BASE_PATH=./ USE_HASH_HISTORY=true USE_PDF_FILE_SYSTEM=true yarn --cwd ../web/ build:prod && copyfiles -u 3 ../web/dist/**/*.* app/web",
+    "build": "yarn prepare && yarn build:prod",
     "build:prod": "cross-env NODE_ENV=production webpack --config ./config/webpack.config.prod.babel.js",
     "electron": "electron ./app/main.prod.js",
     "package": "yarn build:prod && electron-builder build --mac --win --linux",

@@ -1,6 +1,6 @@
 # using this is explained on https://github.com/marketplace/actions/electron-builder-action
 
-name: Build/release
+name: build/release
 
 on: push
 
@@ -10,7 +10,11 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [
+          macos-latest,
+          ubuntu-latest,
+          windows-latest
+        ]
 
     steps:
       - name: Check out Git repository

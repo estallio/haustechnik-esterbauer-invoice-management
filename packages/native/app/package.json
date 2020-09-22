@@ -1,7 +1,10 @@
 {
   "name": "@haustechnik-esterbauer-invoice-management/native",
   "version": "1.0.0",
-  "author": "Leonhard Esterbauer",
+  "author": {
+    "name": "Leonhard Esterbauer",
+    "email": "leonhard.esterbauer@gmail.com"
+  },
   "license": "MIT",
   "private": true,
   "main": "./main.prod.js",

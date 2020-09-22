@@ -62,7 +62,7 @@
       "owner": "estallio",
       "repo": "haustechnik-esterbauer-invoice-management",
       "private": false
-    },
+    }
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,18 @@
+@import '~@fluentui/react/dist/sass/References';
+
+.paddingBottom30 {
+  padding-bottom: 30px;
+}
+
+.borderBottomNaturalGray80 {
+  border-bottom: 1px dashed $ms-color-gray80;
+}
+
+.paddingBottom20 {
+  padding-bottom: 20px;
+}
+
+.searchTextFields {
+  flex: 1;
+  padding-left: 10px;
+}

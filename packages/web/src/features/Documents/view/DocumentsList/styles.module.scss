@@ -1,0 +1,49 @@
+@import '~@fluentui/react/dist/sass/References';
+
+.paddingLeftAndRight10 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.paddingRight40 {
+  padding-right: 40px;
+}
+
+.width175 {
+  width: 175px;
+}
+
+.fontSize16 i {
+  font-size: 16px;
+}
+
+.root {
+  box-sizing: border-box;
+  height: 100%;
+  min-width: 1000px;
+  padding: 60px 20px 20px;
+  width: 100%;
+}
+
+.whitePageContainer {
+  background-color: $ms-color-white;
+  min-height: 100%;
+  width: 968px;
+}
+
+.paddingTopAndBottom20 {
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.height100Percent {
+  height: 100%;
+}
+
+.flex1 {
+  flex: 1;
+}
+
+.minHeight100Percent {
+  min-height: 100%;
+}

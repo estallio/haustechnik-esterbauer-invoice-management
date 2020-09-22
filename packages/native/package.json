@@ -1,0 +1,101 @@
+{
+  "name": "@haustechnik-esterbauer-invoice-management/native",
+  "version": "1.0.0",
+  "author": "Leonhard Esterbauer",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "prepare": "yarn cross-env BASE_PATH=./ USE_HASH_HISTORY=true USE_PDF_FILE_SYSTEM=true yarn --cwd ../web/ build:prod && copyfiles -u 3 ../web/dist/**/*.* app/web",
+    "build:prod": "cross-env NODE_ENV=production webpack --config ./config/webpack.config.prod.babel.js",
+    "electron": "electron ./app/main.prod.js",
+    "package": "yarn build:prod && electron-builder build --mac --win --linux",
+    "package:win": "yarn build:prod && electron-builder build --win",
+    "package:linux": "yarn build:prod && electron-builder build --linux",
+    "package:mac": "yarn build:prod && electron-builder build --mac",
+    "lint": "eslint \"./src/**/*.{js,jsx}\" && stylelint \"**/*.{css,scss,sass}\"",
+    "lint:format": "eslint \"./src/**/*.{js,jsx}\" --fix && stylelint \"**/*.{css,scss,sass}\" --fix",
+    "prepare:fonts": "mkdir -p node_modules/pdfmake/examples && find ./ -name '*.ttf' -exec cp -prv '{}' 'node_modules/pdfmake/examples/fonts' ';' && cd node_modules/pdfmake && yarn && node ./node_modules/gulp/bin/gulp.js buildFonts && cd ../.. && cp node_modules/pdfmake/build/vfs_fonts.js src/fonts/",
+    "prettify": "prettier --write \"./src/**/*.{js,jsx}\"",
+    "format": "yarn prettify && yarn lint:format",
+    "test": "jest --passWithNoTests",
+    "test:watch": "jest --watch --passWithNoTests",
+    "reset": "rimraf .cache dist coverage",
+    "reset:hard": "yarn reset && rimraf node_modules yarn-error.log .eslintcache && yarn install",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "productName": "Haustechnik Esterbauer Rechnungsmanagement",
+    "appId": "at.haustechnik-esterbauer.invoice-management",
+    "files": [
+      "web",
+      "main.prod.js"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "mac": {
+      "target": [
+        "dir"
+      ]
+    },
+    "win": {
+      "target": [
+        "dir", "portable"
+      ]
+    },
+    "portable": {
+      "artifactName": "Rechnungen.exe"
+    },
+    "linux": {
+      "executableName": "Rechnungen",
+      "desktop": {
+        "Terminal": "false"
+      },
+      "target": [
+        "dir"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.11.5",
+    "@babel/core": "^7.11.5",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/register": "^7.11.5",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-preset-env": "^1.7.0",
+    "concurrently": "^5.1.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "copyfiles": "^2.2.0",
+    "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
+    "electron": "8.2.0",
+    "electron-builder": "^22.4.1",
+    "electron-debug": "^3.0.1",
+    "eslint": "^7.8.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": ">=4",
+    "lint-staged": ">=10",
+    "lodash-webpack-plugin": "^0.11.5",
+    "moment-locales-webpack-plugin": "^1.2.0",
+    "prettier": "^2.1.1",
+    "rimraf": "^3.0.2",
+    "source-map-loader": "^1.1.0",
+    "transform-loader": "^0.2.4",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.1.3",
+    "webpack-node-externals": "^1.7.2"
+  }
+}

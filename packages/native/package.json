@@ -54,10 +54,7 @@
     "linux": {
       "executableName": "Haustechnik Esterbauer Rechnungsmanagement",
       "target": [
-        "dir",
-        "deb",
-        "rpm",
-        "AppImage"
+        "dir"
       ]
     },
     "publish": {

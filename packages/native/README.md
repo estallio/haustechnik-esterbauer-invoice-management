@@ -50,3 +50,6 @@ yarn package
 ### Linux and MacOS
 Electron-builder seems to have problems at cross compiling.
 When packaging the application for linux or mac this needs to be done on the corresponding target platform.
+
+### Automated Github workflow builds
+https://github.com/marketplace/actions/electron-builder-action

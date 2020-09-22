@@ -41,21 +41,32 @@
     },
     "win": {
       "target": [
-        "dir", "portable"
+        "dir",
+        "portable"
       ]
     },
     "portable": {
-      "artifactName": "Rechnungen.exe"
+      "artifactName": "Haustechnik Esterbauer Rechnungsmanagement.exe"
     },
     "linux": {
-      "executableName": "Rechnungen",
-      "desktop": {
-        "Terminal": "false"
-      },
+      "executableName": "Haustechnik Esterbauer Rechnungsmanagement",
       "target": [
-        "dir"
+        "dir",
+        "deb",
+        "rpm",
+        "AppImage"
       ]
-    }
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "estallio",
+      "repo": "haustechnik-esterbauer-invoice-management",
+      "private": false
+    },
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/estallio/haustechnik-esterbauer-invoice-management.git"
   },
   "devDependencies": {
     "@babel/cli": "^7.11.5",

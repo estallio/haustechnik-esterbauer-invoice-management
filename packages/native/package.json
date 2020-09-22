@@ -45,7 +45,8 @@
     "win": {
       "target": [
         "dir",
-        "portable"
+        "portable",
+        "nsis"
       ]
     },
     "portable": {

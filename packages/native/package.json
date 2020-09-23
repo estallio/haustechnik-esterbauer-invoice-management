@@ -45,12 +45,8 @@
     "win": {
       "target": [
         "dir",
-        "portable",
         "nsis"
       ]
-    },
-    "portable": {
-      "artifactName": "Haustechnik Esterbauer Rechnungsmanagement.exe"
     },
     "linux": {
       "executableName": "Haustechnik Esterbauer Rechnungsmanagement",

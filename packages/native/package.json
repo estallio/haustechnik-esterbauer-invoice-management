@@ -39,19 +39,26 @@
     },
     "mac": {
       "target": [
-        "dir"
+        "dir",
+        "zip"
       ]
     },
     "win": {
       "target": [
         "dir",
-        "nsis"
+        "portable",
+        "nsis",
+        "zip"
       ]
+    },
+    "portable": {
+      "artifactName": "Haustechnik Esterbauer Rechnungsmanagement.exe"
     },
     "linux": {
       "executableName": "Haustechnik Esterbauer Rechnungsmanagement",
       "target": [
-        "dir"
+        "dir",
+        "zip"
       ]
     },
     "publish": {

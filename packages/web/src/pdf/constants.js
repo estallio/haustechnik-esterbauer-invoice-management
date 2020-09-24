@@ -137,6 +137,7 @@ export const STYLES = {
     font: 'openSansLightItalic',
   },
   footerText: {},
+  headerText: {},
 };
 
 export const TABLE_HEADER = {

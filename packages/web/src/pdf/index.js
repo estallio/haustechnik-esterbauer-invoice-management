@@ -123,6 +123,8 @@ function makePdfContent(doc) {
 
   content.push(getFormattedHeadLine(doc));
 
+  content.push(getFormattedHeaderText(doc));
+
   content.push(getFormattedDocument(doc));
 
   return content;
@@ -183,6 +185,24 @@ function getFormattedHeadLine(doc) {
   return {
     text: doc.headline,
     style: 'header',
+  };
+}
+
+function getFormattedHeaderText(doc) {
+  const additionalHeightNeeded =
+    20 +
+    measureTextHeight(
+      STYLES.headerText.font,
+      STYLES.headerText.fontSize,
+      doc.headerText,
+      515,
+    );
+
+  compareHeight -= additionalHeightNeeded;
+
+  return {
+    text: doc.headerText,
+    margin: [0, 20, 0, 0],
   };
 }
 
@@ -408,7 +428,9 @@ function insertPageBreaks(entries) {
   let firstOnPage = false;
 
   actualPagePosition = 0;
-  compareHeight = FIRST_PAGE_MAX_HEIGHT;
+
+  // this is done somewhere else
+  // compareHeight = FIRST_PAGE_MAX_HEIGHT;
 
   for (let i = 0; i < entries.length - 1; i += 1) {
     actualPagePosition += entries[i].height;

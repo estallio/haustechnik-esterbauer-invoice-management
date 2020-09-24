@@ -98,9 +98,12 @@ class ContextMenu extends Component {
   handleContextMenu = (event) => {
     // don't bubble up right clicks to native browser in production
     // if is encapsulated in useEffect for linting-errors
+    // disabled, because right click is used for copy/past/cut reasons
+    /*
     if (process.env.NODE_ENV === 'production') {
       event.preventDefault();
     }
+    */
   };
 
   handleScroll = () => {

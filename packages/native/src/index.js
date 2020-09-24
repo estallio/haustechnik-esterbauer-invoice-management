@@ -4,7 +4,20 @@ import { app, BrowserWindow, Menu } from 'electron';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import electronDebug from 'electron-debug';
 
+import contextMenu from 'electron-context-menu';
+
 electronDebug();
+
+contextMenu({
+  labels: {
+    copy: 'Kopieren',
+    paste: 'Einfügen',
+    cut: 'Ausschneiden',
+  },
+  showLookUpSelection: false,
+  showSearchWithGoogle: false,
+  showInspectElement: process.env.NODE_ENV !== 'production',
+});
 
 // Global reference to mainWindow (necessary to prevent window from being garbage collected)
 let mainWindow;
@@ -22,25 +35,55 @@ const createMainWindow = () => {
     ...(isMac
       ? [
           {
-            label: 'checkCMR',
+            label: 'Haustechnik Esterbauer Rechnungen',
             submenu: [
-              { role: 'hide' },
-              { role: 'hideothers' },
-              { role: 'unhide' },
+              {
+                label: 'Über Haustechnik Esterbauer Rechnungen',
+                selector: 'orderFrontStandardAboutPanel:',
+              },
+              { label: 'Ausblenden', selector: 'hide' },
+              { label: 'Andere ausblenden', selector: 'hideothers' },
+              { label: 'Alle anzeigen', selector: 'unhide' },
               { type: 'separator' },
-              { role: 'quit' },
+              {
+                label: 'Beenden',
+                accelerator: 'Command+Q',
+                click() {
+                  app.quit();
+                },
+              },
             ],
           },
         ]
       : []),
     {
+      label: 'Bearbeiten',
+      submenu: [
+        { label: 'Rückgängig', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },
+        {
+          label: 'Wiederholen',
+          accelerator: 'Shift+CmdOrCtrl+Z',
+          selector: 'redo:',
+        },
+        { type: 'separator' },
+        { label: 'Ausschneiden', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
+        { label: 'Kopieren', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
+        { label: 'Einfügen', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
+        {
+          label: 'Alles auswählen',
+          accelerator: 'CmdOrCtrl+A',
+          selector: 'selectAll:',
+        },
+      ],
+    },
+    {
       label: 'Window',
       submenu: [
-        { role: 'minimize' },
-        { role: 'zoom' },
+        { label: 'Verkleinern', selector: 'minimize' },
+        { label: 'Vergrößern', selector: 'zoom' },
         ...(isMac
           ? [{ type: 'separator' }, { role: 'front' }, { type: 'separator' }]
-          : [{ role: 'close' }]),
+          : [{ label: 'Schließen', accelerator: 'Cmd+W', selector: 'close' }]),
       ],
     },
   ];
@@ -50,10 +93,10 @@ const createMainWindow = () => {
   mainWindow.maximize();
   mainWindow.setKiosk(false);
   mainWindow.setMenu(null);
-  mainWindow.setClosable(true);
-  mainWindow.setMinimizable(true);
-  mainWindow.setMaximizable(true);
-  mainWindow.setResizable(true);
+  mainWindow.closable = true;
+  mainWindow.minimizable = true;
+  mainWindow.maximizable = true;
+  mainWindow.resizable = true;
 
   mainWindow.on('closed', () => {
     mainWindow = undefined;

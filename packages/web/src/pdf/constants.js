@@ -85,6 +85,12 @@ export const FONTS = {
     italics: 'OpenSans-Regular.ttf',
     bolditalics: 'OpenSans-Regular.ttf',
   },
+  openSansItalic: {
+    normal: 'OpenSans-Italic.ttf',
+    bold: 'OpenSans-Italic.ttf',
+    italics: 'OpenSans-Italic.ttf',
+    bolditalics: 'OpenSans-Italic.ttf',
+  },
   openSansSemibold: {
     normal: 'OpenSans-Semibold.ttf',
     bold: 'OpenSans-Semibold.ttf',
@@ -100,13 +106,13 @@ export const FONTS = {
 };
 
 export const DEFAULT_STYLE = {
-  font: 'openSansLight',
+  font: 'openSansRegular',
   fontSize: 12,
 };
 
 export const STYLES = {
   tableHeader: {
-    font: 'exoLight',
+    font: 'exoMedium',
     fillColor: '#2E91AD',
     color: '#FFFFFF',
   },
@@ -115,7 +121,7 @@ export const STYLES = {
     lineHeight: 1.3,
   },
   header: {
-    font: 'exoLight',
+    font: 'exoMedium',
     fontSize: 22,
     margin: [0, 10, 0, 10],
   },
@@ -127,14 +133,15 @@ export const STYLES = {
   },
   group: {
     color: '#2E91AD',
-    font: 'openSansRegular',
+    font: 'openSansSemibold',
   },
   positionTitle: {},
   positionText: {
     fontSize: 10,
+    font: 'openSansLight',
   },
   alternativeText: {
-    font: 'openSansLightItalic',
+    font: 'openSansItalic',
   },
   footerText: {},
   headerText: {},
@@ -142,7 +149,7 @@ export const STYLES = {
 
 export const TABLE_HEADER = {
   table: {
-    widths: [30, '*', 65, 75, 75],
+    widths: [30, '*', 52, 75, 75],
     body: [
       [
         {

@@ -104,6 +104,10 @@ function initPDFMake() {
     pdfFonts.pdfMake.vfs['OpenSans-Regular.ttf'],
     'base64',
   );
+  fonts.openSansItalic = Buffer.from(
+    pdfFonts.pdfMake.vfs['OpenSans-Italic.ttf'],
+    'base64',
+  );
   fonts.openSansSemibold = Buffer.from(
     pdfFonts.pdfMake.vfs['OpenSans-Semibold.ttf'],
     'base64',
@@ -202,7 +206,7 @@ function getFormattedHeaderText(doc) {
 
   return {
     text: doc.headerText,
-    margin: [0, 20, 0, 0],
+    margin: [0, 0, 0, 20],
   };
 }
 
@@ -350,13 +354,13 @@ function measurePositionHeight(position) {
         'Alternativ zur vorherstehenden Position',
       ) +
       3 +
-      2.5;
+      3;
   });
 
   return height;
 }
 
-function measureTextHeight(font, size, text, width = 213.5) {
+function measureTextHeight(font, size, text, width = 213) {
   if (!text) {
     return 0;
   }
@@ -506,7 +510,7 @@ function formatGroup(group) {
 
   const groupHeader = {
     table: {
-      widths: [30, 213.5, 40, 40, 75, 75],
+      widths: [30, 213, 40, 40, 75, 75],
       body: [
         [
           { text: group.pos, style: ['group', 'right'] },
@@ -519,9 +523,9 @@ function formatGroup(group) {
       ],
     },
     layout: {
-      hLineWidth: (i) => (i === 0 ? 0 : 0.25),
+      hLineWidth: (i) => (i === 0 ? 0 : 0.5),
       vLineWidth: (i, node) =>
-        i === 0 || i === node.table.widths.length ? 0.25 : 0,
+        i === 0 || i === node.table.widths.length ? 0.5 : 0,
       hLineColor: () => '#AAAAAA',
       vLineColor: () => '#AAAAAA',
       paddingRight: (i) => (i === 2 ? 0.75 : 4),
@@ -556,7 +560,7 @@ function formatPosition(position) {
   const elements = [...positionRows, ...alternativeRows];
 
   _.last(elements).layout.hLineWidth = (i, node) =>
-    i === node.table.body.length ? 0.25 : 0;
+    i === node.table.body.length ? 0.5 : 0;
 
   return [...elements, ...pageBreakAfter];
 }
@@ -570,13 +574,16 @@ function formatPositionRows(position) {
 }
 
 function formatAlternativeRows(alternative) {
+  // required, as documents have 'pos', but it is too much on the on the printed sheet
+  alternative.pos = '';
+
   return [getPositionAlternativeTextRow(), ...formatPositionRows(alternative)];
 }
 
 function getPositionAlternativeTextRow() {
   return {
     table: {
-      widths: [30, 213.5, 40, 40, 75, 75],
+      widths: [30, 213, 40, 40, 75, 75],
       body: [
         [
           { text: '' },
@@ -594,7 +601,7 @@ function getPositionAlternativeTextRow() {
     layout: {
       hLineWidth: () => 0,
       vLineWidth: (i, node) =>
-        i === 0 || i === node.table.widths.length ? 0.25 : 0,
+        i === 0 || i === node.table.widths.length ? 0.5 : 0,
       hLineColor: () => '#AAAAAA',
       vLineColor: () => '#AAAAAA',
       paddingRight: (i) => (i === 2 ? 0.75 : 4),
@@ -619,7 +626,7 @@ const unitToText = (unit) => {
 function formatPositionTitleRow(position) {
   return {
     table: {
-      widths: [30, 213.5, 40, 40, 75, 75],
+      widths: [30, 213, 40, 40, 75, 75],
       body: [
         [
           { text: position.pos, style: 'right' },
@@ -651,11 +658,11 @@ function formatPositionTitleRow(position) {
     layout: {
       hLineWidth: (i) => /* i === 0 && !position.isAlternative ? 0 : */ 0,
       vLineWidth: (i, node) =>
-        i === 0 || i === node.table.widths.length ? 0.25 : 0,
+        i === 0 || i === node.table.widths.length ? 0.5 : 0,
       hLineColor: () => '#AAAAAA',
       vLineColor: () => '#AAAAAA',
-      paddingRight: (i) => (i === 2 ? 0.75 : 4),
-      paddingLeft: (i) => (i === 3 ? 0.75 : 4),
+      paddingRight: (i) => (i === 2 ? 3 : 4),
+      paddingLeft: (i) => (i === 5 ? 1.75 : i === 3 ? 0.75 : 4),
       paddingTop: () => 1,
       paddingBottom: () => (position.text ? 0 : 1),
     },
@@ -665,7 +672,7 @@ function formatPositionTitleRow(position) {
 function formatPositionTextRow(positionText) {
   return {
     table: {
-      widths: [30, 213.5, 40, 40, 75, 75],
+      widths: [30, 213, 40, 40, 75, 75],
       body: [
         [
           { text: '' },
@@ -680,7 +687,7 @@ function formatPositionTextRow(positionText) {
     layout: {
       hLineWidth: () => 0,
       vLineWidth: (i, node) =>
-        i === 0 || i === node.table.widths.length ? 0.25 : 0,
+        i === 0 || i === node.table.widths.length ? 0.5 : 0,
       hLineColor: () => '#AAAAAA',
       vLineColor: () => '#AAAAAA',
       paddingRight: (i) => (i === 2 ? 0.75 : 4),
@@ -754,7 +761,7 @@ function getFormattedSumTable(nettoTotal) {
   return {
     table: {
       headerRows: 0,
-      widths: [316, 100, 75],
+      widths: [315.5, 100, 75],
       body: [
         [
           {
@@ -807,9 +814,9 @@ function getFormattedSumTable(nettoTotal) {
       ],
     },
     layout: {
-      hLineWidth: (i) => (i === 2 || i === 3 ? 0.25 : 0),
+      hLineWidth: (i) => (i === 2 || i === 3 ? 0.5 : 0),
       vLineWidth: (i, node) =>
-        i === 0 || i === node.table.widths.length ? 0.25 : 0,
+        i === 0 || i === node.table.widths.length ? 0.5 : 0,
       hLineColor: () => '#AAAAAA',
       vLineColor: () => '#AAAAAA',
       paddingTop: () => 1,
@@ -849,7 +856,8 @@ function getFormattedGroupsResultingTable(doc) {
       'Zusammenfassung',
     ) +
     1.5 +
-    1.5;
+    1.5 +
+    0.5;
 
   _.forEach(groups, (group) => {
     let groupNetto = 0;
@@ -865,13 +873,15 @@ function getFormattedGroupsResultingTable(doc) {
         STYLES.positionTitle.font,
         STYLES.positionTitle.fontSize,
         group.name,
-      ) + 2;
+      ) +
+      2 +
+      0.5;
 
     nettoTotal += groupNetto;
   });
 
   _.last(resultingTable).layout.hLineWidth = (i, node) =>
-    i === node.table.body.length ? 0.25 : 0;
+    i === node.table.body.length ? 0.5 : 0;
 
   actualPagePosition += additionalHeightNeeded;
 
@@ -900,7 +910,7 @@ function renderGroupResultingRow(group, netto) {
   return {
     table: {
       headerRows: 0,
-      widths: [30, 213.5, 40, 40, 151.5],
+      widths: [30, 213, 40, 40, 151.5],
       body: [
         [
           {
@@ -927,9 +937,9 @@ function renderGroupResultingRow(group, netto) {
       ],
     },
     layout: {
-      hLineWidth: (i, node) => (i === node.table.body.length ? 0.25 : 0),
+      hLineWidth: (i, node) => (i === node.table.body.length ? 0.5 : 0),
       vLineWidth: (i, node) =>
-        i === 0 || i === node.table.widths.length ? 0.25 : 0,
+        i === 0 || i === node.table.widths.length ? 0.5 : 0,
       hLineColor: () => '#AAAAAA',
       vLineColor: () => '#AAAAAA',
       paddingTop: () => 1,

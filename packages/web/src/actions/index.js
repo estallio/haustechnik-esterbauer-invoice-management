@@ -36,7 +36,7 @@ export const duplicateDocument = (open = false) =>
   createAction(DUPLICATE_DOCUMENT_ACTION, { open });
 
 export const PRINT_DOCUMENT_ACTION = 'PRINT_DOCUMENT_ACTION';
-export const printDocument = (loadBefore = true) =>
+export const printDocument = (loadBefore = false) =>
   createAction(PRINT_DOCUMENT_ACTION, { loadBefore });
 
 export const OPEN_DOCUMENT_ACTION = 'OPEN_DOCUMENT_ACTION';

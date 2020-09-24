@@ -327,12 +327,14 @@ function* positionOrderingChanged() {
 }
 
 function* printDocumentSaga({ loadBefore }) {
-  const { id } = yield select(selectDocumentData);
+  let id = yield select(selectDocumentData).id;
 
   // TODO: error handling and faster generation
   yield put(Actions.createPDFActions.request());
 
+  // TODO: fix this handling with loadBefore as here two different id selection is happening
   if (loadBefore) {
+    id = yield select(selectSelectedId);
     yield call(loadDocumentSaga, { id });
   }
 

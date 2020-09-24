@@ -200,7 +200,9 @@ const DocumentsList = ({
         onItemInvoked={openDocument}
         // TODO: maybe this anonymous function can be replaced
         onRenderItemColumn={(item, index, column) =>
-          renderItemColumn(item, index, column, openDocument, printDocument)
+          renderItemColumn(item, index, column, openDocument, () =>
+            printDocument(true),
+          )
         }
         selectionMode={SelectionMode.single}
         selection={selection}

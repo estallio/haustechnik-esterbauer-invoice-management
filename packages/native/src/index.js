@@ -1,12 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { app, BrowserWindow, Menu } from 'electron';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
-import electronDebug from 'electron-debug';
-
 import contextMenu from 'electron-context-menu';
 
-electronDebug();
+if (process.env.NODE_ENV === 'development') {
+  require('electron-debug')();
+}
 
 contextMenu({
   labels: {
@@ -28,6 +27,9 @@ const createMainWindow = () => {
     webPreferences: {
       nodeIntegration: true,
     },
+    show: false,
+    width: 1024,
+    height: 728,
   });
 
   const isMac = process.platform === 'darwin';
@@ -93,16 +95,21 @@ const createMainWindow = () => {
   mainWindow.maximize();
   mainWindow.setKiosk(false);
   mainWindow.setMenu(null);
-  mainWindow.closable = true;
-  mainWindow.minimizable = true;
-  mainWindow.maximizable = true;
-  mainWindow.resizable = true;
+  mainWindow.setClosable(true);
+  mainWindow.setMinimizable(true);
+  mainWindow.setMaximizable(true);
+  mainWindow.setResizable(true);
 
   mainWindow.on('closed', () => {
     mainWindow = undefined;
   });
 
   mainWindow.loadURL(`file://${app.getAppPath()}/web/index.html`);
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.show();
+    mainWindow.focus();
+  });
 };
 
 // Quit application when all windows are closed

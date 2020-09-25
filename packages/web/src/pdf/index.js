@@ -38,6 +38,9 @@ const kit = new PDFDocument({ autoFirstPage: false });
 const fonts = [];
 
 export default async function createPDF(doc) {
+  actualPagePosition = 0;
+  compareHeight = FIRST_PAGE_MAX_HEIGHT;
+
   if (!pdfMakeReady) {
     initPDFMake();
   }
@@ -116,6 +119,10 @@ function initPDFMake() {
     pdfFonts.pdfMake.vfs['OpenSans-LightItalic.ttf'],
     'base64',
   );
+  fonts.exoMedium = Buffer.from(
+    pdfFonts.pdfMake.vfs['Exo-Medium.ttf'],
+    'base64',
+  );
 
   pdfMakeReady = true;
 }
@@ -139,8 +146,11 @@ function getFormattedMetaData(doc) {
     doc.customer.address ? doc.customer.address : ''
   }`;
   const date = `${moment.unix(doc.date).format('DD.MM.YYYY')}`;
-  const invoiceOrOffer =
-    doc.type === INVOICE ? 'RechnungsNr.: ' : 'AngebotsNr.: ';
+  const invoiceOrOffer = _.isEmpty(doc.documentId)
+    ? ''
+    : doc.type === INVOICE
+    ? 'RechnungsNr.: '
+    : 'AngebotsNr.: ';
   const id = `${doc.documentId}`;
 
   return makeMetaDataTable(nameAndAddress, date, invoiceOrOffer, id);
@@ -186,6 +196,17 @@ function makeMetaDataTable(nameAndAddress, date, invoiceOrOffer, id) {
 }
 
 function getFormattedHeadLine(doc) {
+  const additionalHeightNeeded =
+    20 +
+    measureTextHeight(
+      STYLES.header.font,
+      STYLES.header.fontSize,
+      doc.headline,
+      515,
+    );
+
+  compareHeight -= additionalHeightNeeded;
+
   return {
     text: doc.headline,
     style: 'header',
@@ -269,7 +290,9 @@ function getFormattedDocument(doc) {
     resultingTable = getFormattedGroupsResultingTable(mappedDoc);
   }
 
-  return [...entries, ...resultingTable];
+  const footerText = getFormattedFooterText(mappedDoc);
+
+  return [...entries, ...resultingTable, ...footerText];
 }
 
 function flatGroups(groups) {
@@ -309,7 +332,8 @@ function measureGroupHeight(group) {
   return (
     measureTextHeight(STYLES.group.font, STYLES.group.fontSize, group.name) +
     1.5 +
-    1.5
+    1.5 +
+    0.5 // +0.5 for line-height
   );
 }
 
@@ -319,35 +343,34 @@ function measurePositionHeight(position) {
   }
 
   let height =
+    1 +
     measureTextHeight(
       STYLES.positionTitle.font,
       STYLES.positionTitle.fontSize,
       position.title,
     ) +
-    1 +
-    (position.text ? 0 : 1) +
     measureTextHeight(
       STYLES.positionText.font,
       STYLES.positionText.fontSize,
       position.text,
     ) +
-    (position.text ? 1 : 0);
+    1 +
+    0.5; // +0.5 for line-height
 
   _.forEach(position.alternatives, (alternative) => {
     height +=
+      1 +
       measureTextHeight(
         STYLES.positionTitle.font,
         STYLES.positionTitle.fontSize,
         alternative.title,
       ) +
-      1 +
-      (alternative.text ? 0 : 1) +
       measureTextHeight(
         STYLES.positionText.font,
         STYLES.positionText.fontSize,
         alternative.text,
       ) +
-      (alternative.text ? 1 : 0);
+      1;
 
     height +=
       measureTextHeight(
@@ -356,7 +379,7 @@ function measurePositionHeight(position) {
         'Alternativ zur vorherstehenden Position',
       ) +
       3 +
-      3;
+      2.5;
   });
 
   return height;
@@ -709,22 +732,15 @@ function getFormattedPositionResultingTable(doc) {
     nettoTotal += positions[i].price * positions[i].amount;
   }
 
-  let additionalHeightNeeded =
+  const additionalHeightNeeded =
     3 *
-    (measureTextHeight(
-      STYLES.positionTitle.font,
-      STYLES.positionTitle.fontSize,
-      'test',
-    ) +
-      2);
-  additionalHeightNeeded +=
-    20 +
-    measureTextHeight(
-      STYLES.footerText.font,
-      STYLES.footerText.fontSize,
-      doc.footerText,
-      515,
-    );
+      (measureTextHeight(
+        STYLES.positionTitle.font,
+        STYLES.positionTitle.fontSize,
+        'test',
+      ) +
+        2) +
+    0.5 * 2; // 0.5 * 2 for hLine
 
   let pageBreak = [];
 
@@ -742,18 +758,46 @@ function getFormattedPositionResultingTable(doc) {
     actualPagePosition = additionalHeightNeeded;
   }
 
-  return [
-    ...pageBreak,
-    getFormattedSumTable(nettoTotal),
-    getFormattedFooterText(doc),
-  ];
+  return [...pageBreak, getFormattedSumTable(nettoTotal)];
 }
 
 function getFormattedFooterText(doc) {
-  return {
-    text: doc.footerText,
-    margin: [0, 20, 0, 0],
-  };
+  if (_.isEmpty(doc.footerText)) {
+    // prevents a last empty page if it is only the padding-top that causes the page-break
+    return [];
+  }
+
+  let pageBreak = [];
+
+  const additionalHeightNeeded =
+    20 +
+    measureTextHeight(
+      STYLES.footerText.font,
+      STYLES.footerText.fontSize,
+      doc.footerText,
+      515,
+    );
+
+  actualPagePosition += additionalHeightNeeded;
+
+  if (actualPagePosition > compareHeight) {
+    pageBreak = [
+      {
+        text: '',
+        pageBreak: 'after',
+      },
+    ];
+
+    actualPagePosition = additionalHeightNeeded;
+  }
+
+  return [
+    ...pageBreak,
+    {
+      text: doc.footerText,
+      margin: [0, 20, 0, 0],
+    },
+  ];
 }
 
 function getFormattedSumTable(nettoTotal) {
@@ -835,20 +879,13 @@ function getFormattedGroupsResultingTable(doc) {
 
   let additionalHeightNeeded =
     3 *
-    (measureTextHeight(
-      STYLES.positionTitle.font,
-      STYLES.positionTitle.fontSize,
-      'test',
-    ) +
-      2);
-  additionalHeightNeeded +=
-    20 +
-    measureTextHeight(
-      STYLES.footerText.font,
-      STYLES.footerText.fontSize,
-      doc.footerText,
-      515,
-    );
+      (measureTextHeight(
+        STYLES.positionTitle.font,
+        STYLES.positionTitle.fontSize,
+        'test',
+      ) +
+        2) +
+    0.5 * 2; // 0.5 * 2 for hLine
 
   resultingTable.push(formatGroup({ pos: '', name: 'Zusammenfassung' }));
   additionalHeightNeeded +=
@@ -900,12 +937,7 @@ function getFormattedGroupsResultingTable(doc) {
     actualPagePosition = additionalHeightNeeded;
   }
 
-  return [
-    ...pageBreak,
-    ...resultingTable,
-    getFormattedSumTable(nettoTotal),
-    getFormattedFooterText(doc),
-  ];
+  return [...pageBreak, ...resultingTable, getFormattedSumTable(nettoTotal)];
 }
 
 function renderGroupResultingRow(group, netto) {

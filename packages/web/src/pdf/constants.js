@@ -2,7 +2,7 @@ import backgroundImage from './images/background';
 import logoImage from './images/logo';
 import * as Footer from './texts/Footer';
 
-export const FIRST_PAGE_MAX_HEIGHT = 412;
+export const FIRST_PAGE_MAX_HEIGHT = 412 + 29.238; // 29.238 is headline-height
 export const PAGE_MAX_HEIGHT = 572;
 
 export const PAGE_MARGINS = [40, 110, 40, 100];

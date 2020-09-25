@@ -5,6 +5,7 @@
     "name": "Leonhard Esterbauer",
     "email": "leonhard.esterbauer@gmail.com"
   },
+  "description": "Rechnungsmanagement für Haustechnik Esterbauer",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -29,38 +30,54 @@
     "postinstall": "electron-builder install-app-deps"
   },
   "build": {
-    "productName": "Haustechnik Esterbauer Rechnungsmanagement",
     "appId": "at.haustechnik-esterbauer.invoice-management",
+    "productName": "Haustechnik Esterbauer Rechnungen",
+    "copyright": "Copyright © 2020 Haustechnik Esterbauer",
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    },
     "files": [
       "web",
       "main.prod.js"
     ],
-    "directories": {
-      "output": "release"
-    },
     "mac": {
       "target": [
-        "dir",
-        "zip"
+        "dmg"
+      ]
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
       ]
     },
     "win": {
       "target": [
-        "dir",
-        "portable",
-        "nsis",
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "runAfterFinish": false,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true
+    },
+    "linux": {
+      "executableName": "Haustechnik Esterbauer Rechnungen",
+      "target": [
         "zip"
       ]
     },
     "portable": {
-      "artifactName": "Haustechnik Esterbauer Rechnungsmanagement.exe"
-    },
-    "linux": {
-      "executableName": "Haustechnik Esterbauer Rechnungsmanagement",
-      "target": [
-        "dir",
-        "zip"
-      ]
+      "artifactName": "Haustechnik Esterbauer Rechnungen.exe"
     },
     "publish": {
       "provider": "github",

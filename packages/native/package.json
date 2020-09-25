@@ -73,7 +73,7 @@
     "linux": {
       "executableName": "Haustechnik Esterbauer Rechnungen",
       "target": [
-        "zip"
+        "AppImage"
       ]
     },
     "portable": {

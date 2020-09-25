@@ -260,9 +260,11 @@ function getFormattedDocument(doc) {
   };
 
   if (mappedDoc.positions.hierarchy === 'POSITIONS') {
-    entries = formatEntries(flatPositions(mappedDoc.positions.positions));
-    resultingTable = getFormattedPositionResultingTable(mappedDoc);
-  } else {
+    if (!_.isEmpty(mappedDoc.positions.positions)) {
+      entries = formatEntries(flatPositions(mappedDoc.positions.positions));
+      resultingTable = getFormattedPositionResultingTable(mappedDoc);
+    }
+  } else if (!_.isEmpty(mappedDoc.positions.groups)) {
     entries = formatEntries(flatGroups(mappedDoc.positions.groups));
     resultingTable = getFormattedGroupsResultingTable(mappedDoc);
   }

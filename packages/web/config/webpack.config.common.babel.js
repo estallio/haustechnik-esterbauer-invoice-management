@@ -5,6 +5,10 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { resolve } from 'path';
 import webpack from 'webpack';
 
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const CopyPdfJsLibraryPlugin = process.env.USE_PDF_FILE_SYSTEM
   ? [
       new CopyWebpackPlugin({
@@ -108,6 +112,16 @@ export default {
       // as electron don't has a native pdf-viewer, we have to use a library like pdfjs
       // pdfjs loads native files, so we need to save the pdf somewhere in the filesystem first
       USE_PDF_FILE_SYSTEM: false,
+      // the next variables could also be passed through by e.g. the dot-env plugin, but this is easier and more predictable for now
+      NAME: '',
+      ADDRESS: '',
+      PLACE: '',
+      TEL: '',
+      EMAIL: '',
+      WEBSITE: '',
+      IBAN: '',
+      BIC: '',
+      UID: '',
     }),
     new MomentLocalesPlugin({
       localesToKeep: ['de'],

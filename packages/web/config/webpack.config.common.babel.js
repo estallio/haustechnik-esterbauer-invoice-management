@@ -116,9 +116,11 @@ export default {
       NAME: '',
       ADDRESS: '',
       PLACE: '',
+
       TEL: '',
       EMAIL: '',
       WEBSITE: '',
+
       IBAN: '',
       BIC: '',
       UID: '',

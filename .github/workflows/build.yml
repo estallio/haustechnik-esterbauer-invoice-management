@@ -45,7 +45,7 @@ jobs:
           ADDRESS: ${{ secrets.ADDRESS }}
           PLACE: ${{ secrets.PLACE }}
 
-          TEL: ${{ secrets.PLACE }}
+          TEL: ${{ secrets.TEL }}
           EMAIL: ${{ secrets.EMAIL }}
           WEBSITE: ${{ secrets.WEBSITE }}
 

@@ -39,3 +39,16 @@ jobs:
           build_script_name: build
 
           package_root: packages/native/
+
+        env:
+          NAME: ${{ secrets.NAME }}
+          ADDRESS: ${{ secrets.ADDRESS }}
+          PLACE: ${{ secrets.PLACE }}
+
+          TEL: ${{ secrets.PLACE }}
+          EMAIL: ${{ secrets.EMAIL }}
+          WEBSITE: ${{ secrets.WEBSITE }}
+
+          IBAN: ${{ secrets.IBAN }}
+          BIC: ${{ secrets.BIC }}
+          UID: ${{ secrets.UID }}

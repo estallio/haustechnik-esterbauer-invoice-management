@@ -1,10 +1,11 @@
-export const FIRST_COLUMN =
-  'Franz Esterbauer\n' + 'Scheuhub 4a\n' + '5282 Ranshofen';
+export const FIRST_COLUMN = `${process.env.NAME}
+${process.env.ADDRESS}
+${process.env.PLACE}`;
 
-export const SECOND_COLUMN =
-  '+43 (0) 664 48 83 220\n' +
-  'info@haustechnik-esterbauer.at\n' +
-  'www.haustechnik-esterbauer.at';
+export const SECOND_COLUMN = `${process.env.TEL}
+${process.env.EMAIL}
+${process.env.WEBSITE}`;
 
-export const THIRD_COLUMN =
-  'IBAN: AT29 3406 0000 0832\n' + 'BIC: RZOOAT2L060\n' + 'UID: ATU56996022';
+export const THIRD_COLUMN = `IBAN: ${process.env.IBAN}
+BIC: ${process.env.BIC}
+UID: ${process.env.UID}`;

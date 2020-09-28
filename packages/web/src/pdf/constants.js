@@ -29,7 +29,7 @@ export const FOOTER = {
   columns: [
     {
       text: Footer.FIRST_COLUMN,
-      width: 200,
+      width: 170,
       margin: [50, 0, 0, 0],
       style: 'footerColumn',
     },
@@ -41,8 +41,8 @@ export const FOOTER = {
     },
     {
       text: Footer.THIRD_COLUMN,
-      width: 200,
-      margin: [20, 0, 50, 0],
+      width: 230,
+      margin: [25, 0, 50, 0],
       style: 'footerColumn',
     },
   ],

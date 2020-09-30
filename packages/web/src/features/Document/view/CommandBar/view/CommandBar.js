@@ -21,6 +21,7 @@ import {
 import {
   selectIsDocumentValid,
   selectIsDocumentDirty,
+  setIsDocumentDirty as setIsDocumentDirtyAction,
 } from '../../../redux/DocumentStatus';
 
 import { generateFarItems, generateItems } from '../utils/CommandBarUtils';
@@ -35,22 +36,42 @@ const CommandBar = ({
   saveDocument,
   createInvoiceFromOffer,
   duplicateDocument,
+  setIsDocumentDirty,
   deleteDocument,
 }) => {
   const [items, setItems] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalState, setModalState] = useState(null);
 
-  const showModal = () => {
+  const showModal = (state) => {
     setIsModalVisible(true);
+    setModalState(state);
   };
 
-  const hideRemoveConfirmationModal = () => {
+  const hideModal = () => {
     setIsModalVisible(false);
   };
 
-  const deleteDocumentConfirmed = () => {
+  const modalConfirmed = () => {
     setIsModalVisible(false);
-    deleteDocument(true);
+
+    switch (modalState) {
+      case 'duplicateDocument':
+        setIsDocumentDirty(false);
+        duplicateDocument(true);
+        break;
+      case 'createInvoiceFromOffer':
+        setIsDocumentDirty(false);
+        createInvoiceFromOffer(true);
+        break;
+      case 'deleteDocument':
+        setIsDocumentDirty(false);
+        deleteDocument(true);
+        break;
+      default:
+    }
+
+    setModalState(null);
   };
 
   useEffect(() => {
@@ -58,10 +79,16 @@ const CommandBar = ({
       generateItems({
         navigateBackClicked: navigateBack,
         saveDocumentClicked: saveDocument,
-        duplicateDocumentClicked: () => duplicateDocument(true),
-        createInvoiceFromOfferClicked: () => createInvoiceFromOffer(true),
+        duplicateDocumentClicked: () =>
+          isDocumentDirty
+            ? showModal('duplicateDocument')
+            : duplicateDocument(true),
+        createInvoiceFromOfferClicked: () =>
+          isDocumentDirty
+            ? showModal('createInvoiceFromOffer')
+            : createInvoiceFromOffer(true),
         printDocumentClicked: () => printDocument(false),
-        deleteDocumentClicked: showModal,
+        deleteDocumentClicked: () => showModal('deleteDocument'),
       }),
     );
   }, [
@@ -71,6 +98,7 @@ const CommandBar = ({
     createInvoiceFromOffer,
     duplicateDocument,
     deleteDocument,
+    isDocumentDirty,
   ]);
 
   const [farItems, setFarItems] = useState([]);
@@ -78,6 +106,19 @@ const CommandBar = ({
   useEffect(() => {
     setFarItems(generateFarItems(isDocumentValid, isDocumentDirty));
   }, [isDocumentDirty, isDocumentValid]);
+
+  const getModalText = (state) => {
+    switch (state) {
+      case 'duplicateDocument':
+        return 'Es gibt ungespeicherte Änderungen. Wirklich fortfahren?';
+      case 'createInvoiceFromOffer':
+        return 'Es gibt ungespeicherte Änderungen. Wirklich fortfahren?';
+      case 'deleteDocument':
+        return 'Dokument wirklich löschen?';
+      default:
+        return 'Wirklich forfahren?';
+    }
+  };
 
   return (
     <>
@@ -88,9 +129,9 @@ const CommandBar = ({
         <ConfirmationModal
           isVisible={isModalVisible}
           title="Bestätigung"
-          text="Dokument wirklich löschen?"
-          modalCancel={hideRemoveConfirmationModal}
-          modalConfirm={deleteDocumentConfirmed}
+          text={getModalText(modalState)}
+          modalCancel={hideModal}
+          modalConfirm={modalConfirmed}
         />
       )}
     </>
@@ -106,6 +147,7 @@ CommandBar.propTypes = {
   duplicateDocument: PropTypes.func.isRequired,
   createInvoiceFromOffer: PropTypes.func.isRequired,
   deleteDocument: PropTypes.func.isRequired,
+  setIsDocumentDirty: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -120,6 +162,7 @@ const mapDispatchToProps = {
   duplicateDocument: duplicateDocumentAction,
   deleteDocument: deleteDocumentAction,
   createInvoiceFromOffer: createInvoiceFromOfferAction,
+  setIsDocumentDirty: setIsDocumentDirtyAction,
 };
 
 export default connect(

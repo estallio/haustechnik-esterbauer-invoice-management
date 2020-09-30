@@ -7,6 +7,7 @@ import { getCollection } from './collection';
 
 import { parseUnixFromString } from '../utils/timeUtils';
 import { textToNumber } from '../utils/numberUtils';
+import { getDocumentTypeName } from '../utils/documentUtils';
 
 const createEmptyDocument = (type = INVOICE) => ({
   // necessary, as nanoid produces ids that may start width underscores and pouchdb prohibits this
@@ -22,7 +23,7 @@ const createEmptyDocument = (type = INVOICE) => ({
     address: '',
   },
   subject: '',
-  headline: '',
+  headline: getDocumentTypeName(type),
   headerText: '',
   positions: [],
   footerText: '',
@@ -206,6 +207,16 @@ export const duplicateDocument = async (id, type = null, date = null) => {
     const query = collection.findOne(id);
     const oldDoc = await query.exec();
     const data = _.omit(oldDoc.toJSON(), ['_id', '_rev', 'id']);
+
+    // if transformation from offer to invoice and headline was not changed
+    if (
+      data.type === OFFER &&
+      data.headline === getDocumentTypeName(data.type) &&
+      type === INVOICE
+    ) {
+      // automatically rename Angebot to Rechnung
+      data.headline = getDocumentTypeName(type);
+    }
 
     const doc = await collection.insert({
       ...createEmptyDocument(),

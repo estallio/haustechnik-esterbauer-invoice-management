@@ -112,13 +112,13 @@ const renderItemColumn = (item, index, column, openDocument, printDocument) => {
               title="Öffnen"
               menuIconProps={{ iconName: 'Edit' }}
               className={styles.fontSize16}
-              onClick={openDocument}
+              onClick={() => openDocument()}
             />
             <IconButton
               title="Drucken"
               menuIconProps={{ iconName: 'Print' }}
               className={styles.fontSize16}
-              onClick={printDocument}
+              onClick={() => printDocument(true)}
             />
           </Stack.Item>
         </Stack>
@@ -200,9 +200,7 @@ const DocumentsList = ({
         onItemInvoked={openDocument}
         // TODO: maybe this anonymous function can be replaced
         onRenderItemColumn={(item, index, column) =>
-          renderItemColumn(item, index, column, openDocument, () =>
-            printDocument(true),
-          )
+          renderItemColumn(item, index, column, openDocument, printDocument)
         }
         selectionMode={SelectionMode.single}
         selection={selection}

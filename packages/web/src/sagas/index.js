@@ -77,10 +77,14 @@ import { formatDate } from '../utils/timeUtils';
  *  SUBROUTINES
  */
 
-function* openDocumentSaga() {
-  const id = yield select(selectSelectedId);
+// TODO: only temporarily fixed: if a document is created in the context-menu,
+//  the selection of the documents-list drops and causes a null-selection after
+//  the document is created, so a openDocument action with documentId null is
+//  triggered, fixed with introducing id as parameter
+function* openDocumentSaga({ id }) {
+  const documentId = id || (yield select(selectSelectedId));
 
-  yield put(push(`/documents/${id}`));
+  yield put(push(`/documents/${documentId}`));
 
   yield put(setIsDocumentReady(true));
 }
@@ -105,7 +109,7 @@ function* createOfferSaga({ open }) {
     yield put(setSelectedId(resultDocument.id));
 
     if (open) {
-      yield call(openDocumentSaga);
+      yield call(openDocumentSaga, { id: resultDocument.id });
     }
   } else {
     yield put(Actions.createDocumentActions.failure(result.error));
@@ -159,7 +163,7 @@ function* createInvoiceSaga({ open }) {
     yield put(setSelectedId(resultDocument.id));
 
     if (open) {
-      yield call(openDocumentSaga);
+      yield call(openDocumentSaga, { id: resultDocument.id });
     }
   } else {
     yield put(Actions.createDocumentActions.failure(result.error));
@@ -186,7 +190,7 @@ function* createInvoiceFromOfferSaga({ open }) {
     yield put(setSelectedId(resultDocument.id));
 
     if (open) {
-      yield call(openDocumentSaga);
+      yield call(openDocumentSaga, { id: resultDocument.id });
     }
   } else {
     yield put(Actions.createDocumentActions.failure(result.error));
@@ -261,7 +265,7 @@ function* duplicateDocumentSaga({ open }) {
     yield put(setSelectedId(resultDocument.id));
 
     if (open) {
-      yield call(openDocumentSaga);
+      yield call(openDocumentSaga, { id: resultDocument.id });
     }
   } else {
     yield put(Actions.createDocumentActions.failure(result.error));

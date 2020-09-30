@@ -40,7 +40,8 @@ export const printDocument = (loadBefore = false) =>
   createAction(PRINT_DOCUMENT_ACTION, { loadBefore });
 
 export const OPEN_DOCUMENT_ACTION = 'OPEN_DOCUMENT_ACTION';
-export const openDocument = () => createAction(OPEN_DOCUMENT_ACTION, {});
+export const openDocument = (id = null) =>
+  createAction(OPEN_DOCUMENT_ACTION, { id });
 
 export const SAVE_DOCUMENT_ACTION = 'SAVE_DOCUMENT_ACTION';
 export const saveDocument = () => createAction(SAVE_DOCUMENT_ACTION, {});

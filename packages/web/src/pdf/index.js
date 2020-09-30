@@ -17,6 +17,7 @@ import {
   FIRST_PAGE_MAX_HEIGHT,
   PAGE_MAX_HEIGHT,
   TABLE_HEADER,
+  LINE_THICKNESS,
 } from './constants';
 import {
   INVOICE,
@@ -333,7 +334,7 @@ function measureGroupHeight(group) {
     measureTextHeight(STYLES.group.font, STYLES.group.fontSize, group.name) +
     1.5 +
     1.5 +
-    0.5 // +0.5 for line-height
+    LINE_THICKNESS
   );
 }
 
@@ -355,7 +356,7 @@ function measurePositionHeight(position) {
       position.text,
     ) +
     1 +
-    0.5; // +0.5 for line-height
+    LINE_THICKNESS;
 
   _.forEach(position.alternatives, (alternative) => {
     height +=
@@ -418,7 +419,7 @@ function formatEntries(entries) {
 
   formattedEntries = formattedEntries.map((entry) => formatEntry(entry));
 
-  // _.last(_.last(formattedEntries)).layout.hLineWidth = (i, node) => i === node.table.body.length ? 0.25 : 0;
+  // _.last(_.last(formattedEntries)).layout.hLineWidth = (i, node) => i === node.table.body.length ? LINE_THICKNESS : 0;
 
   return formattedEntries;
 }
@@ -548,9 +549,9 @@ function formatGroup(group) {
       ],
     },
     layout: {
-      hLineWidth: (i) => (i === 0 ? 0 : 0.5),
+      hLineWidth: (i) => (i === 0 ? 0 : LINE_THICKNESS),
       vLineWidth: (i, node) =>
-        i === 0 || i === node.table.widths.length ? 0.5 : 0,
+        i === 0 || i === node.table.widths.length ? LINE_THICKNESS : 0,
       hLineColor: () => '#AAAAAA',
       vLineColor: () => '#AAAAAA',
       paddingRight: (i) => (i === 2 ? 0.75 : 4),
@@ -585,7 +586,7 @@ function formatPosition(position) {
   const elements = [...positionRows, ...alternativeRows];
 
   _.last(elements).layout.hLineWidth = (i, node) =>
-    i === node.table.body.length ? 0.5 : 0;
+    i === node.table.body.length ? LINE_THICKNESS : 0;
 
   return [...elements, ...pageBreakAfter];
 }
@@ -626,7 +627,7 @@ function getPositionAlternativeTextRow() {
     layout: {
       hLineWidth: () => 0,
       vLineWidth: (i, node) =>
-        i === 0 || i === node.table.widths.length ? 0.5 : 0,
+        i === 0 || i === node.table.widths.length ? LINE_THICKNESS : 0,
       hLineColor: () => '#AAAAAA',
       vLineColor: () => '#AAAAAA',
       paddingRight: (i) => (i === 2 ? 0.75 : 4),
@@ -683,7 +684,7 @@ function formatPositionTitleRow(position) {
     layout: {
       hLineWidth: (i) => /* i === 0 && !position.isAlternative ? 0 : */ 0,
       vLineWidth: (i, node) =>
-        i === 0 || i === node.table.widths.length ? 0.5 : 0,
+        i === 0 || i === node.table.widths.length ? LINE_THICKNESS : 0,
       hLineColor: () => '#AAAAAA',
       vLineColor: () => '#AAAAAA',
       paddingRight: (i) => (i === 2 ? 3 : 4),
@@ -712,7 +713,7 @@ function formatPositionTextRow(positionText) {
     layout: {
       hLineWidth: () => 0,
       vLineWidth: (i, node) =>
-        i === 0 || i === node.table.widths.length ? 0.5 : 0,
+        i === 0 || i === node.table.widths.length ? LINE_THICKNESS : 0,
       hLineColor: () => '#AAAAAA',
       vLineColor: () => '#AAAAAA',
       paddingRight: (i) => (i === 2 ? 0.75 : 4),
@@ -740,7 +741,7 @@ function getFormattedPositionResultingTable(doc) {
         'test',
       ) +
         2) +
-    0.5 * 2; // 0.5 * 2 for hLine
+    LINE_THICKNESS * 2;
 
   let pageBreak = [];
 
@@ -860,9 +861,9 @@ function getFormattedSumTable(nettoTotal) {
       ],
     },
     layout: {
-      hLineWidth: (i) => (i === 2 || i === 3 ? 0.5 : 0),
+      hLineWidth: (i) => (i === 2 || i === 3 ? LINE_THICKNESS : 0),
       vLineWidth: (i, node) =>
-        i === 0 || i === node.table.widths.length ? 0.5 : 0,
+        i === 0 || i === node.table.widths.length ? LINE_THICKNESS : 0,
       hLineColor: () => '#AAAAAA',
       vLineColor: () => '#AAAAAA',
       paddingTop: () => 1,
@@ -885,7 +886,7 @@ function getFormattedGroupsResultingTable(doc) {
         'test',
       ) +
         2) +
-    0.5 * 2; // 0.5 * 2 for hLine
+    LINE_THICKNESS * 2;
 
   resultingTable.push(formatGroup({ pos: '', name: 'Zusammenfassung' }));
   additionalHeightNeeded +=
@@ -896,7 +897,7 @@ function getFormattedGroupsResultingTable(doc) {
     ) +
     1.5 +
     1.5 +
-    0.5;
+    LINE_THICKNESS;
 
   _.forEach(groups, (group) => {
     let groupNetto = 0;
@@ -914,13 +915,13 @@ function getFormattedGroupsResultingTable(doc) {
         group.name,
       ) +
       2 +
-      0.5;
+      LINE_THICKNESS;
 
     nettoTotal += groupNetto;
   });
 
   _.last(resultingTable).layout.hLineWidth = (i, node) =>
-    i === node.table.body.length ? 0.5 : 0;
+    i === node.table.body.length ? LINE_THICKNESS : 0;
 
   actualPagePosition += additionalHeightNeeded;
 
@@ -971,9 +972,10 @@ function renderGroupResultingRow(group, netto) {
       ],
     },
     layout: {
-      hLineWidth: (i, node) => (i === node.table.body.length ? 0.5 : 0),
+      hLineWidth: (i, node) =>
+        i === node.table.body.length ? LINE_THICKNESS : 0,
       vLineWidth: (i, node) =>
-        i === 0 || i === node.table.widths.length ? 0.5 : 0,
+        i === 0 || i === node.table.widths.length ? LINE_THICKNESS : 0,
       hLineColor: () => '#AAAAAA',
       vLineColor: () => '#AAAAAA',
       paddingTop: () => 1,

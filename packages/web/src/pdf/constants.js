@@ -25,6 +25,8 @@ export const BACKGROUND = {
   margin: [0, 454, 0, 0],
 };
 
+export const LINE_THICKNESS = 0.35;
+
 export const FOOTER = {
   columns: [
     {

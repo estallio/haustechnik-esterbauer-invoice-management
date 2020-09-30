@@ -197,7 +197,9 @@ const DocumentsList = ({
         enableShimmer={isLoading}
         items={items}
         columns={columns}
-        onItemInvoked={openDocument}
+        // TODO: don't use openDocument that way, pass an id and dont'rely on selectedDocumentId
+        //  rather use selectedDocumentId only for deciding the CommandBar - symbols
+        onItemInvoked={() => openDocument()}
         // TODO: maybe this anonymous function can be replaced
         onRenderItemColumn={(item, index, column) =>
           renderItemColumn(item, index, column, openDocument, printDocument)

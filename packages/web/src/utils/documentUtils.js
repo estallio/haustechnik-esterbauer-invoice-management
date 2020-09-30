@@ -70,6 +70,11 @@ export const denormalizeDocument = ({
   footerText,
 }) => {
   const wrappedPositions = _.map(positions, (position) => {
+    // GROUPs don't have extra/normalized properties
+    if (position.type === GROUP) {
+      return position;
+    }
+
     const positionAlternatives = _.filter(
       alternatives,
       (alternative) => alternative.positionId === position.id,

@@ -81,9 +81,7 @@ export default async function createPDF(doc) {
         title: pdfFileName,
       });
 
-      const pdfFilePath = encodeURIComponent(
-        `${app.getPath('temp')}/${pdfFileName}`,
-      );
+      const pdfFilePath = `${app.getPath('temp')}/${pdfFileName}`;
 
       fs.writeFileSync(pdfFilePath, buffer);
 

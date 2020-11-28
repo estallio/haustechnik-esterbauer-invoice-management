@@ -26,6 +26,7 @@ const createMainWindow = () => {
   mainWindow = new BrowserWindow({
     webPreferences: {
       nodeIntegration: true,
+      enableRemoteModule: true,
     },
     show: false,
     width: 1024,
@@ -148,6 +149,16 @@ const createMainWindow = () => {
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
     mainWindow.focus();
+  });
+
+  mainWindow.webContents.session.on('will-download', (event, item) => {
+    item.setSaveDialogOptions({
+      filters: [
+        // Set your allowed file extensions here
+        { name: 'PDF', extensions: ['pdf'] },
+      ],
+      message: 'Bitte Dateityp auswählen',
+    });
   });
 };
 

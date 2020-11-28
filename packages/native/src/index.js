@@ -58,7 +58,16 @@ const createMainWindow = () => {
           },
         ]
       : []),
-    // unfortunately, this only works on mac
+    // for windows and mac to create a new window
+    // TODO: could be enhanced to open specific id
+    //  but as this would destroy the back-history, this is left open for now
+    {
+      label: 'Neues Fenster',
+      click: () => {
+        createMainWindow();
+      },
+    },
+    // unfortunately, the next section only works on mac
     ...(isMac
       ? [
           {
@@ -116,16 +125,6 @@ const createMainWindow = () => {
                     },
                   ]),
             ],
-          },
-        ]
-      : []),
-    ...(!isMac
-      ? [
-          {
-            label: 'Neues Fenster',
-            click: () => {
-              createMainWindow();
-            },
           },
         ]
       : []),

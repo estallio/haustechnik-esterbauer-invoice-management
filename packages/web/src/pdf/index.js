@@ -68,9 +68,11 @@ export default async function createPDF(doc) {
         pdfName = 'Rechnung';
       }
 
-      const pdfFileName = `${pdfName}_${doc.documentId}_${
+      const pdfFileNameString = `${pdfName}_${doc.documentId}_${
         doc.customer.name
       }_${moment.unix(doc.date).format('DD.MM.YYYY')}.pdf`;
+
+      const pdfFileName = pdfFileNameString.replace(/[/\\?%*:|"<>]/g, '-');
 
       const win = new BrowserWindow({
         width: 1024,

@@ -151,6 +151,10 @@ const createMainWindow = () => {
     mainWindow.focus();
   });
 
+  // could also work with ipc-application:download: https://www.codota.com/code/javascript/functions/electron/Dialog/showSaveDialog
+  // or like this: https://github.com/electron/electron/issues/9593#issuecomment-308806458
+  // or like this: https://medium.com/@alirezavalizade/what-are-the-options-to-download-a-file-in-electron-based-applications-f91eff5a4e7
+  // or like this: https://stackoverflow.com/questions/46102851/electron-download-a-file-to-a-specific-location
   mainWindow.webContents.session.on('will-download', (event, item) => {
     item.setSaveDialogOptions({
       filters: [

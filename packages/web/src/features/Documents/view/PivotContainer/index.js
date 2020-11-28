@@ -86,7 +86,10 @@ const DocumentsContainer = ({
         </Stack.Item>
         <Stack.Item grow>
           <ContextMenu contextMenuEvent={contextMenuEvent} />
-          <Pivot onLinkClick={pivotItemSelectionChanged}>
+          <Pivot
+            onLinkClick={pivotItemSelectionChanged}
+            defaultSelectedKey={invoicePivotItemKey}
+          >
             {/* TODO: memory if invoices or offers are selected */}
             <PivotItem
               itemKey={offerPivotItemKey}

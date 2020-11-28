@@ -62,24 +62,30 @@ export default async function createPDF(doc) {
     const fs = require('fs');
     const { app, BrowserWindow } = require('electron').remote;
 
-    const win = new BrowserWindow({
-      width: 1024,
-      height: 768,
-      title: 'Rechnungen',
-    });
-
     createdPdfDocument.getBuffer((buffer) => {
       let pdfName = 'Angebot';
       if (doc.type === INVOICE) {
         pdfName = 'Rechnung';
       }
-      const pdfFilePath = `${app.getPath('temp')}/${pdfName}_${
-        doc.documentId
-      }_${doc.customer.name}_${moment.unix(doc.date).format('DD.MM.YYYY')}.pdf`;
+
+      const pdfFileName = `${pdfName}_${doc.documentId}_${
+        doc.customer.name
+      }_${moment.unix(doc.date).format('DD.MM.YYYY')}.pdf`;
+
+      const win = new BrowserWindow({
+        width: 1024,
+        height: 768,
+        title: pdfFileName,
+      });
+
+      const pdfFilePath = `${app.getPath('temp')}/${pdfFileName}`;
+
       fs.writeFileSync(pdfFilePath, buffer);
+
       win.loadURL(
         `file://${app.getAppPath()}/web/pdf/pdfjs/web/viewer.html?file=${pdfFilePath}`,
       );
+
       win.show();
       win.focus();
     });

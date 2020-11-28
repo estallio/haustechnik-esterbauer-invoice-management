@@ -74,6 +74,7 @@ export default async function createPDF(doc) {
 
       const pdfFileName = pdfFileNameString.replace(/[/\\?%*:|"<>]/g, '-');
 
+      // TODO: we could add window-properties like Cmd-W closing etc. to the windows
       const win = new BrowserWindow({
         width: 1024,
         height: 768,
@@ -147,6 +148,21 @@ function getFormattedMetaData(doc) {
   const nameAndAddress = `${doc.customer.name}\n${
     doc.customer.address ? doc.customer.address : ''
   }`;
+
+  // default case: max. 3 lines for address, if field is bigger we subtract
+  // that value from the compareHeight of the first page
+  // TODO: this could be done better in subtract compareHeight - two rows and add
+  //  the height as with this implementation it has to be measured 2 times
+  const defaultTwoLineText = `firstLine\nsecondLine`;
+  const defaultTextHeight = measureTextHeight(null, null, defaultTwoLineText);
+  const actualTextHeight = measureTextHeight(null, null, nameAndAddress);
+
+  // TODO: we could also subtract this value from the topMargin of the title here
+  //  because there is much space below the meta-fields
+  if (actualTextHeight > defaultTextHeight) {
+    compareHeight -= actualTextHeight - defaultTextHeight;
+  }
+
   const date = `${moment.unix(doc.date).format('DD.MM.YYYY')}`;
   const invoiceOrOffer = _.isEmpty(doc.documentId)
     ? ''

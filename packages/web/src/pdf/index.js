@@ -60,20 +60,13 @@ export default async function createPDF(doc) {
 
   if (process.env.USE_PDF_FILE_SYSTEM) {
     const fs = require('fs');
-    const { app, BrowserWindow, getCurrentWindow } = require('electron').remote;
+    const { app, BrowserWindow } = require('electron').remote;
 
-    let win;
-    const windows = BrowserWindow.getAllWindows();
-
-    if (windows.length <= 1) {
-      win = new BrowserWindow({
-        width: 1024,
-        height: 768,
-        title: 'Rechnungen',
-      });
-    } else {
-      win = windows.filter((window) => window.id !== getCurrentWindow().id)[0];
-    }
+    const win = new BrowserWindow({
+      width: 1024,
+      height: 768,
+      title: 'Rechnungen',
+    });
 
     createdPdfDocument.getBuffer((buffer) => {
       let pdfName = 'Angebot';

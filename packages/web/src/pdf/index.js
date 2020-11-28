@@ -86,7 +86,7 @@ export default async function createPDF(doc) {
       fs.writeFileSync(pdfFilePath, buffer);
 
       win.loadURL(
-        `file://${app.getAppPath()}/web/pdf/pdfjs/web/viewer.html?file=${pdfFilePath}`,
+        `file://${app.getAppPath()}/web/pdf/pdfjs/web/viewer.html?file=${pdfFilePath}?${pdfFileName}`,
       );
 
       win.show();

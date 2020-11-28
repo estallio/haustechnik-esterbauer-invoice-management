@@ -58,43 +58,83 @@ const createMainWindow = () => {
           },
         ]
       : []),
-    {
-      label: 'Bearbeiten',
-      submenu: [
-        { label: 'Rückgängig', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },
-        {
-          label: 'Wiederholen',
-          accelerator: 'Shift+CmdOrCtrl+Z',
-          selector: 'redo:',
-        },
-        { type: 'separator' },
-        { label: 'Ausschneiden', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
-        { label: 'Kopieren', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
-        { label: 'Einfügen', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
-        {
-          label: 'Alles auswählen',
-          accelerator: 'CmdOrCtrl+A',
-          selector: 'selectAll:',
-        },
-      ],
-    },
-    {
-      label: 'Window',
-      submenu: [
-        { label: 'Verkleinern', selector: 'minimize' },
-        { label: 'Vergrößern', selector: 'zoom' },
-        ...(isMac
-          ? [{ type: 'separator' }, { role: 'front' }, { type: 'separator' }]
-          : [{ label: 'Schließen', accelerator: 'Cmd+W', selector: 'close' }]),
-      ],
-    },
+    // unfortunately, this only works on mac
+    ...(isMac
+      ? [
+          {
+            label: 'Bearbeiten',
+            submenu: [
+              {
+                label: 'Rückgängig',
+                accelerator: 'CmdOrCtrl+Z',
+                selector: 'undo:',
+              },
+              {
+                label: 'Wiederholen',
+                accelerator: 'Shift+CmdOrCtrl+Z',
+                selector: 'redo:',
+              },
+              { type: 'separator' },
+              {
+                label: 'Ausschneiden',
+                accelerator: 'CmdOrCtrl+X',
+                selector: 'cut:',
+              },
+              {
+                label: 'Kopieren',
+                accelerator: 'CmdOrCtrl+C',
+                selector: 'copy:',
+              },
+              {
+                label: 'Einfügen',
+                accelerator: 'CmdOrCtrl+V',
+                selector: 'paste:',
+              },
+              {
+                label: 'Alles auswählen',
+                accelerator: 'CmdOrCtrl+A',
+                selector: 'selectAll:',
+              },
+            ],
+          },
+          {
+            label: 'Fenster',
+            submenu: [
+              { label: 'Verkleinern', selector: 'minimize' },
+              { label: 'Vergrößern', selector: 'zoom' },
+              ...(isMac
+                ? [
+                    { type: 'separator' },
+                    { role: 'front' },
+                    { type: 'separator' },
+                  ]
+                : [
+                    {
+                      label: 'Schließen',
+                      accelerator: 'Cmd+W',
+                      selector: 'close',
+                    },
+                  ]),
+            ],
+          },
+        ]
+      : []),
+    ...(!isMac
+      ? [
+          {
+            label: 'Neues Fenster',
+            click: () => {
+              createMainWindow();
+            },
+          },
+        ]
+      : []),
   ];
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 
   mainWindow.maximize();
   mainWindow.setKiosk(false);
-  mainWindow.setMenu(null);
   mainWindow.setClosable(true);
   mainWindow.setMinimizable(true);
   mainWindow.setMaximizable(true);

@@ -81,12 +81,14 @@ export default async function createPDF(doc) {
         title: pdfFileName,
       });
 
-      const pdfFilePath = `${app.getPath('temp')}/${pdfFileName}`;
+      const pdfFilePath = encodeURIComponent(
+        `${app.getPath('temp')}/${pdfFileName}`,
+      );
 
       fs.writeFileSync(pdfFilePath, buffer);
 
       win.loadURL(
-        `file://${app.getAppPath()}/web/pdf/pdfjs/web/viewer.html?file=${pdfFilePath}?${pdfFileName}`,
+        `file://${app.getAppPath()}/web/pdf/pdfjs/web/viewer.html?file=${pdfFilePath}`,
       );
 
       win.show();

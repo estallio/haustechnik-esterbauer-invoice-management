@@ -15,7 +15,7 @@
     "build:prod": "cross-env NODE_ENV=production webpack --config ./config/webpack.config.prod.babel.js",
     "electron": "electron ./app/main.prod.js",
     "package": "yarn build:prod && electron-builder build --mac --win --linux",
-    "package:win": "yarn build:dev && electron-builder build --win",
+    "package:win": "yarn build:prod && electron-builder build --win",
     "package:linux": "yarn build:prod && electron-builder build --linux",
     "package:mac": "yarn build:prod && electron-builder build --mac",
     "lint": "eslint \"./src/**/*.{js,jsx}\" && stylelint \"**/*.{css,scss,sass}\"",

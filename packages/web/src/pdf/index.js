@@ -58,6 +58,9 @@ export default async function createPDF(doc) {
     pageSize: 'A4',
   });
 
+  // TODO: the following could be replaced by simply use the new electron pdf viewer extension
+  //  e.g. https://stackoverflow.com/questions/52844135/how-to-view-a-pdf-in-an-electron-browserwindow
+  //  but filename/download etc. have to carried out
   if (process.env.USE_PDF_FILE_SYSTEM) {
     const fs = require('fs');
     const { app, BrowserWindow } = require('electron').remote;

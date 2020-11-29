@@ -41,7 +41,9 @@ const DocumentsContainer = ({
   setSelectedDocumentId,
   searchParams,
 }) => {
-  const [selectedPivotItem, setSelectedPivotItem] = useState(offerPivotItemKey);
+  const [selectedPivotItem, setSelectedPivotItem] = useState(
+    invoicePivotItemKey,
+  );
   const [contextMenuEvent, setContextMenuEvent] = useState(null);
 
   useEffect(() => {

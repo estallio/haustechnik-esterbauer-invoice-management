@@ -156,10 +156,13 @@ const createMainWindow = () => {
   // or like this: https://medium.com/@alirezavalizade/what-are-the-options-to-download-a-file-in-electron-based-applications-f91eff5a4e7
   // or like this: https://stackoverflow.com/questions/46102851/electron-download-a-file-to-a-specific-location
   mainWindow.webContents.session.on('will-download', (event, item) => {
+    console.log(event, item);
+
     item.setSaveDialogOptions({
       filters: [
         // Set your allowed file extensions here
         { name: 'PDF', extensions: ['pdf'] },
+        { name: 'JSON', extensions: ['json'] },
       ],
       message: 'Bitte Dateityp auswählen',
     });

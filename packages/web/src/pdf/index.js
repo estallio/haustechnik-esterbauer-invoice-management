@@ -212,6 +212,8 @@ function makeMetaDataTable(nameAndAddress, date, invoiceOrOffer, id) {
     layout: {
       hLineWidth: () => 0,
       vLineWidth: () => 0,
+      // if name and address should be left-padded
+      // paddingLeft: (i) => (i === 0 ? 16 : 0),
     },
   };
 }
@@ -406,7 +408,7 @@ function measurePositionHeight(position) {
   return height;
 }
 
-function measureTextHeight(font, size, text, width = 213) {
+function measureTextHeight(font, size, text, width = 205) {
   if (!text) {
     return 0;
   }
@@ -556,7 +558,7 @@ function formatGroup(group) {
 
   const groupHeader = {
     table: {
-      widths: [30, 213, 40, 40, 75, 75],
+      widths: [30, 205, 40, 40, 75, 75],
       body: [
         [
           { text: group.pos, style: ['group', 'right'] },
@@ -629,7 +631,7 @@ function formatAlternativeRows(alternative) {
 function getPositionAlternativeTextRow() {
   return {
     table: {
-      widths: [30, 213, 40, 40, 75, 75],
+      widths: [30, 205, 40, 40, 75, 75],
       body: [
         [
           { text: '' },
@@ -672,7 +674,7 @@ const unitToText = (unit) => {
 function formatPositionTitleRow(position) {
   return {
     table: {
-      widths: [30, 213, 40, 40, 75, 75],
+      widths: [30, 205, 40, 40, 75, 75],
       body: [
         [
           { text: position.pos, style: 'right' },
@@ -718,7 +720,7 @@ function formatPositionTitleRow(position) {
 function formatPositionTextRow(positionText) {
   return {
     table: {
-      widths: [30, 213, 40, 40, 75, 75],
+      widths: [30, 205, 40, 40, 75, 75],
       body: [
         [
           { text: '' },
@@ -828,7 +830,7 @@ function getFormattedSumTable(nettoTotal) {
   return {
     table: {
       headerRows: 0,
-      widths: [315.5, 100, 75],
+      widths: [304.5, 100, 75],
       body: [
         [
           {
@@ -965,7 +967,7 @@ function renderGroupResultingRow(group, netto) {
   return {
     table: {
       headerRows: 0,
-      widths: [30, 213, 40, 40, 151.5],
+      widths: [30, 205, 40, 40, 151.5],
       body: [
         [
           {

@@ -2,10 +2,14 @@ import backgroundImage from './images/background';
 import logoImage from './images/logo';
 import * as Footer from './texts/Footer';
 
+// unit-calculation:
+// var marginInPoints = marginInCentimeter / 2.54 * 72
+// source: https://github.com/bpampuch/pdfmake/issues/334
+
 export const FIRST_PAGE_MAX_HEIGHT = 412 + 29.238; // 29.238 is headline-height
 export const PAGE_MAX_HEIGHT = 572;
 
-export const PAGE_MARGINS = [40, 110, 40, 100];
+export const PAGE_MARGINS = [50, 110, 38, 100];
 
 export const IMAGES = {
   backgroundImage,
@@ -38,13 +42,13 @@ export const FOOTER = {
     {
       text: Footer.SECOND_COLUMN,
       width: '*',
-      margin: [20, 0, 0, 0],
+      margin: [22, 0, 0, 0],
       style: 'footerColumn',
     },
     {
       text: Footer.THIRD_COLUMN,
       width: 230,
-      margin: [25, 0, 50, 0],
+      margin: [25, 0, 38, 0],
       style: 'footerColumn',
     },
   ],

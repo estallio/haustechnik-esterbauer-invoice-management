@@ -830,7 +830,7 @@ function getFormattedSumTable(nettoTotal) {
   return {
     table: {
       headerRows: 0,
-      widths: [304.5, 100, 75],
+      widths: [307.5, 100, 75],
       body: [
         [
           {

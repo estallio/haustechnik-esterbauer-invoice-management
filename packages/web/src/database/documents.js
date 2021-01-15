@@ -9,6 +9,19 @@ import { parseUnixFromString } from '../utils/timeUtils';
 import { textToNumber } from '../utils/numberUtils';
 import { getDocumentTypeName } from '../utils/documentUtils';
 
+const INVOICE_FOOTER_TEXT = `Vielen Dank für Ihren Auftrag!
+Zahlbar innerhalb von 14 Tagen nach Rechnungserhalt, 2% Skonto innerhalb von 8 Tagen nach Rechnungserhalt.
+Es gelten die allgemeinen Geschäftsbedingungen, die Sie unter www.haustechnik-esterbauer.at finden.`;
+
+const OFFER_FOOTER_TEXT = `Im Angebot sind keine Stemm-, Maurer- oder Elektroarbeiten enthalten.
+Abrechnung erfolgt nach tatsächlichem Aufwand.
+Angebot gültig bis
+
+Für Fragen stehen wir Ihnen jederzeit zur Verfügung!
+Mit freundlichen Grüßen
+
+Es gelten die allgemeinen Geschäftsbedingungen, die Sie unter www.haustechnik-esterbauer.at finden.`;
+
 const createEmptyDocument = (type = INVOICE) => ({
   // necessary, as nanoid produces ids that may start width underscores and pouchdb prohibits this
   id: `${type}-${nanoid()}`,
@@ -26,7 +39,7 @@ const createEmptyDocument = (type = INVOICE) => ({
   headline: getDocumentTypeName(type),
   headerText: '',
   positions: [],
-  footerText: '',
+  footerText: type === INVOICE ? INVOICE_FOOTER_TEXT : OFFER_FOOTER_TEXT,
   amount: 0,
 });
 
@@ -216,6 +229,12 @@ export const duplicateDocument = async (id, type = null, date = null) => {
     ) {
       // automatically rename Angebot to Rechnung
       data.headline = getDocumentTypeName(type);
+    }
+
+    // if transformation from offer to invoice
+    if (data.type === OFFER && type === INVOICE) {
+      // automatically insert invoice-footer-text
+      data.footerText = INVOICE_FOOTER_TEXT;
     }
 
     const doc = await collection.insert({

@@ -9,7 +9,7 @@ import * as Footer from './texts/Footer';
 export const FIRST_PAGE_MAX_HEIGHT = 412 + 29.238; // 29.238 is headline-height
 export const PAGE_MAX_HEIGHT = 572;
 
-export const PAGE_MARGINS = [50, 110, 38, 100];
+export const PAGE_MARGINS = [57, 110, 38, 100];
 
 export const IMAGES = {
   backgroundImage,
@@ -42,13 +42,13 @@ export const FOOTER = {
     {
       text: Footer.SECOND_COLUMN,
       width: '*',
-      margin: [22, 0, 0, 0],
+      margin: [24, 0, 0, 0],
       style: 'footerColumn',
     },
     {
       text: Footer.THIRD_COLUMN,
       width: 230,
-      margin: [25, 0, 38, 0],
+      margin: [27, 0, 38, 0],
       style: 'footerColumn',
     },
   ],

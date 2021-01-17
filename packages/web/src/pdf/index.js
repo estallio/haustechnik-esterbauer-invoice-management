@@ -408,7 +408,7 @@ function measurePositionHeight(position) {
   return height;
 }
 
-function measureTextHeight(font, size, text, width = 205) {
+function measureTextHeight(font, size, text, width = 198) {
   if (!text) {
     return 0;
   }
@@ -558,7 +558,7 @@ function formatGroup(group) {
 
   const groupHeader = {
     table: {
-      widths: [30, 205, 40, 40, 75, 75],
+      widths: [30, 198, 40, 40, 75, 75],
       body: [
         [
           { text: group.pos, style: ['group', 'right'] },
@@ -631,7 +631,7 @@ function formatAlternativeRows(alternative) {
 function getPositionAlternativeTextRow() {
   return {
     table: {
-      widths: [30, 205, 40, 40, 75, 75],
+      widths: [30, 198, 40, 40, 75, 75],
       body: [
         [
           { text: '' },
@@ -674,7 +674,7 @@ const unitToText = (unit) => {
 function formatPositionTitleRow(position) {
   return {
     table: {
-      widths: [30, 205, 40, 40, 75, 75],
+      widths: [30, 198, 40, 40, 75, 75],
       body: [
         [
           { text: position.pos, style: 'right' },
@@ -720,7 +720,7 @@ function formatPositionTitleRow(position) {
 function formatPositionTextRow(positionText) {
   return {
     table: {
-      widths: [30, 205, 40, 40, 75, 75],
+      widths: [30, 198, 40, 40, 75, 75],
       body: [
         [
           { text: '' },
@@ -830,7 +830,7 @@ function getFormattedSumTable(nettoTotal) {
   return {
     table: {
       headerRows: 0,
-      widths: [307.5, 100, 75],
+      widths: [300.5, 100, 75],
       body: [
         [
           {
@@ -967,7 +967,7 @@ function renderGroupResultingRow(group, netto) {
   return {
     table: {
       headerRows: 0,
-      widths: [30, 205, 40, 40, 151.5],
+      widths: [30, 198, 40, 40, 151.5],
       body: [
         [
           {

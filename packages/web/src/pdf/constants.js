@@ -36,7 +36,7 @@ export const FOOTER = {
     {
       text: Footer.FIRST_COLUMN,
       width: 170,
-      margin: [50, 0, 0, 0],
+      margin: [57, 0, 0, 0],
       style: 'footerColumn',
     },
     {

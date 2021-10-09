@@ -60,7 +60,7 @@ const columns = [
   },
   {
     key: 'amount',
-    name: 'Betrag',
+    name: 'Netto',
     fieldName: 'amount',
     minWidth: colWidth - 80,
     maxWidth: colWidth - 80,
@@ -132,8 +132,8 @@ const renderItemColumn = (item, index, column, openDocument, printDocument) => {
   }
 };
 
-// TODO: transform this to class and prevent renderItemRow from beeing an arrow function which forces a rerender every time
-//  better approach: fixed items and fixed render-method etc. so the list is not rerendered each time
+// TODO: transform this to class and prevent renderItemRow from being an arrow function which forces a rerender every time
+//  better approach: fixed items and fixed render-method etc. so the list is not re-rendered each time
 // TODO: somehow there exists a selection bug after the list-view was open for a few minutes
 // TODO: double click on text-element should not bubble up double click and open, so one can mark e.g. a name or number and the listview with a double click
 const DocumentsList = ({

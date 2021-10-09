@@ -96,7 +96,7 @@ export const generateFarItems = (isDocumentValid, isDocumentDirty) => {
     },
     {
       key: 'unsaved',
-      name: 'Ungespeichert',
+      name: 'Speicherstatus',
       iconOnly: true,
       commandBarButtonAs: () => createUnsavedComponent(isDocumentDirty),
     },

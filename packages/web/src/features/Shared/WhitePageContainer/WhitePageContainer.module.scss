@@ -15,6 +15,9 @@
   background-color: $ms-color-gray10;
   box-sizing: border-box;
   display: flex;
+
+  // TODO: this is necessary to fix the scrolling issue where all items over 50 elements are not rendered in the shimmered details list
+  height: calc(100vh - 60px);
   min-height: 100vh;
   min-width: 1000px;
   overflow: auto;

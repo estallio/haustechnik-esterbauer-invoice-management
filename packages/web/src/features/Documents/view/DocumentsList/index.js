@@ -208,7 +208,13 @@ const DocumentsList = ({
         selection={selection}
         checkboxVisibility={CheckboxVisibility.hidden}
         onItemContextMenu={showContextMenu}
-        onShouldVirtualize={() => false}
+        // TODO: List Virtualization is causing issues with scrolling in the List View and causes some weired rendering issues resulting in not rendering items
+        // A temporary solution is to set onShouldVirtualize to false - if there are performance issues rendering all the rows, maybe a virtualized List View with a fixed height is another solution to this problem
+        // --> currently, the outer wrapper is assigned with fixed dimensions and overflow: auto and it solved the issue for now
+        // related issues:
+        // https://github.com/microsoft/fluentui/issues/10267
+        // https://github.com/microsoft/fluentui/issues/4204
+        // onShouldVirtualize={() => false}
       />
     </Stack>
   );

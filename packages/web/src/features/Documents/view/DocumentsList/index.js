@@ -208,6 +208,7 @@ const DocumentsList = ({
         selection={selection}
         checkboxVisibility={CheckboxVisibility.hidden}
         onItemContextMenu={showContextMenu}
+        onShouldVirtualize={() => false}
       />
     </Stack>
   );

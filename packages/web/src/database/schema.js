@@ -6,7 +6,7 @@ export default {
   // title of a document
   title: 'document',
   // version of schema
-  version: 1,
+  version: 2,
   // wrapper is a json-object
   type: 'object',
   // all properties are required for consistency reasons

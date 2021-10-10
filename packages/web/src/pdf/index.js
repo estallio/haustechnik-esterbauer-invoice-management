@@ -19,15 +19,10 @@ import {
   TABLE_HEADER,
   LINE_THICKNESS,
 } from './constants';
-import {
-  INVOICE,
-  GROUP,
-  POSITION,
-  HOURS,
-  LITRES,
-  METERS,
-  PIECES,
-} from '../database/constants';
+
+import { INVOICE, GROUP, POSITION } from '../database/constants';
+
+import { unitTranslationObjects } from '../utils/unitUtils';
 
 let pdfMakeReady = false;
 
@@ -660,15 +655,16 @@ function getPositionAlternativeTextRow() {
   };
 }
 
-const unitToText = (unit) => {
-  const unitMap = [
-    { key: HOURS, text: 'Stunden' },
-    { key: LITRES, text: 'Liter' },
-    { key: METERS, text: 'Meter' },
-    { key: PIECES, text: 'Stück' },
-  ];
+const unitToText = (unit, amount) => {
+  const unitObject = _.first(
+    unitTranslationObjects.filter((u) => u.key === unit),
+  );
 
-  return _.first(unitMap.filter((u) => u.key === unit)).text;
+  if (amount === 1 && !_.isEmpty(unitObject.singleUnitText)) {
+    return unitObject.singleUnitText;
+  }
+
+  return unitObject.text;
 };
 
 function formatPositionTitleRow(position) {
@@ -683,7 +679,10 @@ function formatPositionTitleRow(position) {
             text: Number(position.amount).toLocaleString('de-DE'),
             style: 'right',
           },
-          { text: unitToText(position.unit), style: 'unit' },
+          {
+            text: unitToText(position.unit, Number(position.amount)),
+            style: 'unit',
+          },
           {
             text: Number(position.price).toLocaleString('de-DE', {
               style: 'currency',

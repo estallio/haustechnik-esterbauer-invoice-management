@@ -43,6 +43,9 @@ const getCollectionAsync = async () => {
         oldDoc.tax = 20;
         return oldDoc;
       },
+      2(oldDoc) {
+        return oldDoc;
+      },
     },
   });
 

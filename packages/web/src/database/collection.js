@@ -38,6 +38,12 @@ const getCollectionAsync = async () => {
   collectionSingleton = await db.collection({
     name: 'documents',
     schema: documentSchema,
+    migrationStrategies: {
+      1(oldDoc) {
+        oldDoc.tax = 20;
+        return oldDoc;
+      },
+    },
   });
 
   // amounts should always be updated, doesn't matter

@@ -1,6 +1,23 @@
-.wrapper {
+.widthWrapper {
+  padding-right: 50px;
+  width: 290px;
+}
+
+.textField {
+  width: 122px;
+}
+
+.total {
+  padding-right: 10px;
+  text-align: right;
+}
+
+.lineWrapper {
   padding-bottom: 10px;
-  padding-left: 30px;
-  padding-right: 60px;
-  padding-top: 0;
+}
+
+.resultLineWrapper {
+  background-color: #fff;
+  border-top: 1px dashed #b3b0ad;
+  padding-top: 7px;
 }

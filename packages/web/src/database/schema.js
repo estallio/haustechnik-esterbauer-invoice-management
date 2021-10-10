@@ -6,7 +6,7 @@ export default {
   // title of a document
   title: 'document',
   // version of schema
-  version: 0,
+  version: 1,
   // wrapper is a json-object
   type: 'object',
   // all properties are required for consistency reasons
@@ -25,6 +25,7 @@ export default {
     'positions',
     'footerText',
     'amount',
+    'tax',
   ],
   // set indexes on search-fields
   indexes: ['documentId', 'date', 'amount'],
@@ -88,6 +89,10 @@ export default {
     // headerText
     headerText: {
       type: 'string',
+    },
+    // tax
+    tax: {
+      type: 'number',
     },
     // positions of document
     positions: {

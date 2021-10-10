@@ -38,6 +38,7 @@ const createEmptyDocument = (type = INVOICE) => ({
   subject: '',
   headline: getDocumentTypeName(type),
   headerText: '',
+  tax: 20,
   positions: [],
   footerText: type === INVOICE ? INVOICE_FOOTER_TEXT : OFFER_FOOTER_TEXT,
   amount: 0,
@@ -221,7 +222,7 @@ export const duplicateDocument = async (id, type = null, date = null) => {
     const oldDoc = await query.exec();
     const data = _.omit(oldDoc.toJSON(), ['_id', '_rev', 'id']);
 
-    // if transformation from offer to invoice and headline was not changed
+    // if transformation happens from offer to invoice and headline was not changed initially, automatically transform headline from 'Angebot' to 'Rechnung'
     if (
       data.type === OFFER &&
       data.headline === getDocumentTypeName(data.type) &&

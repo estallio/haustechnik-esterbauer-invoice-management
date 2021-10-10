@@ -50,6 +50,7 @@ export const normalizeDocument = (document) => {
     headerText: document.headerText,
     positions,
     alternatives,
+    tax: document.tax,
     footerText: document.footerText,
     amount: document.amount,
   };
@@ -67,6 +68,7 @@ export const denormalizeDocument = ({
   headerText,
   positions,
   alternatives,
+  tax,
   footerText,
 }) => {
   const wrappedPositions = _.map(positions, (position) => {
@@ -112,6 +114,7 @@ export const denormalizeDocument = ({
     headline,
     headerText,
     positions: wrappedPositions,
+    tax: textToNumber(tax),
     footerText,
   };
 };
@@ -119,7 +122,7 @@ export const denormalizeDocument = ({
 export const checkFirstPositionIdGroup = (positions) => {
   const errors = [];
 
-  if (_.isUndefined(positions)) {
+  if (!_.isArray(positions)) {
     errors.push('Positionen sind nicht definiert.');
   }
   const hasGroup =
@@ -135,9 +138,9 @@ export const checkFirstPositionIdGroup = (positions) => {
 export const checkIsDocumentValid = (document) => {
   const errors = [];
 
-  const { positions, alternatives } = document;
+  const { positions, alternatives, tax } = document;
 
-  if (_.isUndefined(positions)) {
+  if (!_.isArray(positions)) {
     errors.push('Positionen sind nicht definiert.');
   }
   const hasGroup =
@@ -147,18 +150,32 @@ export const checkIsDocumentValid = (document) => {
     errors.push('Erste Position muss eine Gruppe sein.');
   }
 
-  if (_.isUndefined(alternatives)) {
+  if (!_.isArray(alternatives)) {
     errors.push('Alternativen sind nicht definiert.');
   }
 
+  if (!_.isNumber(tax)) {
+    errors.push('Steuer ist keine Zahl.');
+  }
+
   _.forEach(positions, (position) => {
+    /*
     if (_.isEmpty(position.title)) {
       errors.push(`Position ${position.pos}: Titel darf nicht leer sein.`);
     }
+    */
 
     if (position.type !== GROUP) {
       if (UNITS.indexOf(position.unit) === -1) {
         errors.push(`Position ${position.pos}: Einheit darf nicht leer sein.`);
+      }
+
+      if (!_.isNumber(position.amount)) {
+        errors.push(`Position ${position.pos}: Menge ist keine Zahl.`);
+      }
+
+      if (!_.isNumber(position.price)) {
+        errors.push(`Position ${position.pos}: Preis ist keine Zahl.`);
       }
 
       const positionAlternatives = _.filter(
@@ -167,15 +184,29 @@ export const checkIsDocumentValid = (document) => {
       );
 
       _.forEach(positionAlternatives, (alternative) => {
+        /*
         if (_.isEmpty(alternative.title)) {
           errors.push(
             `Position ${position.pos}, Alternative ${alternative.pos}: Titel darf nicht leer sein.`,
           );
         }
+        */
 
-        if (UNITS.indexOf(position.unit) === -1) {
+        if (UNITS.indexOf(alternative.unit) === -1) {
           errors.push(
             `Position ${position.pos}, Alternative ${alternative.pos}: Einheit darf nicht leer sein.`,
+          );
+        }
+
+        if (!_.isNumber(position.amount)) {
+          errors.push(
+            `Position ${position.pos}, Alternative ${alternative.pos}: Menge ist keine Zahl.`,
+          );
+        }
+
+        if (!_.isNumber(position.price)) {
+          errors.push(
+            `Position ${position.pos}, Alternative ${alternative.pos}: Preis ist keine Zahl.`,
           );
         }
       });

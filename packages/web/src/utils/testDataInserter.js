@@ -84,6 +84,7 @@ const createFakeTestData = () => {
     headline: lorem.words(random.number({ min: 1, max: 3 })),
     headerText: lorem.sentences(random.number({ min: 1, max: 3 })),
     positions,
+    tax: random.number({ min: 0, max: 20 }),
     footerText: lorem.sentences(random.number({ min: 1, max: 3 })),
     amount,
   };

@@ -781,7 +781,7 @@ function getFormattedPositionResultingTable(doc) {
     actualPagePosition = additionalHeightNeeded;
   }
 
-  return [...pageBreak, getFormattedSumTable(nettoTotal)];
+  return [...pageBreak, getFormattedSumTable(nettoTotal, doc.tax)];
 }
 
 function getFormattedFooterText(doc) {
@@ -823,8 +823,8 @@ function getFormattedFooterText(doc) {
   ];
 }
 
-function getFormattedSumTable(nettoTotal) {
-  const mwSt = nettoTotal * 0.2;
+function getFormattedSumTable(nettoTotal, tax) {
+  const mwSt = nettoTotal * (tax / 100);
   const bruttoTotal = nettoTotal + mwSt;
 
   return {
@@ -853,7 +853,7 @@ function getFormattedSumTable(nettoTotal) {
             text: '',
           },
           {
-            text: '20% MwSt.',
+            text: `${Number(tax).toLocaleString('de-DE')}% MwSt.`,
             style: 'right',
           },
           {
@@ -960,7 +960,11 @@ function getFormattedGroupsResultingTable(doc) {
     actualPagePosition = additionalHeightNeeded;
   }
 
-  return [...pageBreak, ...resultingTable, getFormattedSumTable(nettoTotal)];
+  return [
+    ...pageBreak,
+    ...resultingTable,
+    getFormattedSumTable(nettoTotal, doc.tax),
+  ];
 }
 
 function renderGroupResultingRow(group, netto) {

@@ -40,6 +40,12 @@ class SearchForm extends Component {
     };
   }
 
+  componentDidMount() {
+    this.setState({
+      searchParams: this.props.searchParams,
+    });
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (
       prevProps !== this.props &&

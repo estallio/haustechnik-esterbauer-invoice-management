@@ -7,8 +7,6 @@ import { withRouter } from 'react-router-dom';
 import { Pivot, PivotItem } from '@fluentui/react/lib/Pivot';
 import { Stack } from '@fluentui/react/lib/Stack';
 
-import { isCurrency, currencyToNumber } from '../../../../utils/numberUtils';
-
 import SearchBar from '../Search';
 import DocumentsCommandBar from '../CommandBar';
 import ContextMenu from '../ContextMenu';
